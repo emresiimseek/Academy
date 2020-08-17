@@ -1,0 +1,59 @@
+﻿@model CourseDto
+@using Acedemy.API.Models.Dto
+
+<a style="margin-top:10px;" class="btn btn-info back" href="/Attendances/TakeAttendance">Listeye Geri Dön<i style="margin-left:3px;" class="fa fa-undo" aria-hidden="true"></i></a>
+<div class="row" style="padding-top: 5px">
+    <p>Lütfen yoklama tarihini seçiniz.</p>
+    <div class="col">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        <input data-date-format="dd/mm/yyyy" id="datepicker">
+    </div>
+</div>
+<div class="row">
+
+    <input id="save" type="submit" name="name" value="Kaydet" class="btn btn-success btn-lg save" />
+
+    <table class="table">
+        <thead class="head">
+            <tr>
+                <th scope="col">Öğrenci No</th>
+                <th scope="col">Öğrenci Adı</th>
+                <th scope="col">Öğrenci Soyadı</th>
+                <th scope="col">Burada?</th>
+            </tr>
+        </thead>
+        <tbody class="custombody">
+            @{
+                List<Academy.EntityFramework.Concrete.Student> students = Model.Students;
+
+                foreach (Academy.EntityFramework.Concrete.Student student in students)
+                {
+                    <tr class="@student.Id" onclick="hereorNot('@student.Id')">
+                        <th scope="row">@student.Id  <input type="text" class="deneme2" name="name" value="@Model.CourseId" /></th>
+                        <td>@student.FirstName</td>
+                        <td>@student.LastName</td>
+                        <td>
+                            <label>
+                                <input id="test" class="@student.Id" type="checkbox" />
+                            </label>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+    $('#datepicker').datepicker({
+        weekStart: 1,
+        daysOfWeekHighlighted: "6,0",
+        autoclose: true,
+        todayHighlight: true,
+    });
+    $('#datepicker').datepicker("setDate", new Date());
+</script>
+
+

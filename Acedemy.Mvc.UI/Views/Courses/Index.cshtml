@@ -1,0 +1,58 @@
+﻿@model List<Acedemy.API.Models.Dto.CourseDto>
+@using Acedemy.API.Models.Dto
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kurslar<i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></h2>
+
+<div>
+
+
+    <a class="btn btn-success addcourse" href="/Courses/Create">Yeni Kurs<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+    @*@Html.ActionLink("Yeni Kurs", "Create", new { }, new { @class = "btn btn-success addcourse" })k*@
+</div>
+
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr class="header">
+            <th>Kurs No</th>
+            <th>Kurs Adı</th>
+            <th>Kurs Açıklama</th>
+            <th>Kurs Toplam Süre</th>
+            <th>Eğitmenler</th>
+            <th>Oluşturma Tarihi</th>
+            <th>Değiştirme Tarihi</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (CourseDto course in Model)
+        {
+            <tr class="customtr clickable-row" onclick="clickablerow('@course.CourseId')">
+                <td> @Html.DisplayFor(modelItem => course.CourseId)  <input type="text" class="hiddencourse" name="name" value="@course.CourseId" /></td>
+
+                <td>  @Html.DisplayFor(modelItem => course.Title)</td>
+                <td> @Html.DisplayFor(modelItem => course.Description)</td>
+                <td> @Html.DisplayFor(modelItem => course.TotalTime)</td>
+
+
+                @foreach (Academy.EntityFramework.Concrete.Instructor instructorModel in course.Instructors)
+                {
+                    <td>@instructorModel.FirstName @instructorModel.LastName</td>
+
+                }
+                <td> @Html.DisplayFor(modelItem => course.CreatedOn)</td>
+                <td>  @Html.DisplayFor(modelItem => course.ModifiedOn)</td>
+                <td style="text-align:center;">
+                    <a class="btn btn-warning" style="margin:2px;" href="/Courses/Edit?id=@course.CourseId"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a class="btn btn-danger" href="/Courses/Delete?id=@course.CourseId"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
