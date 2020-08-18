@@ -1,6 +1,7 @@
 ﻿using Academy.EntityFramework.Concrete;
 using Academy.EntityFramework.Concrete.ComplexTypes;
 using Academy.EntityFramework.Concrete.DTOs;
+using Academy.EntityFramework.Messages;
 using Acedemy.API.Models.Dto;
 using Acedemy.Business;
 using Newtonsoft.Json;
@@ -24,19 +25,20 @@ namespace Acedemy.Mvc.UI.ApiService
             _httpClient = httpClient;
         }
 
-        public async Task<BusinessLayerResult<AttendanceModelDto>> Add(AttendanceModelDto attendanceModelDto, string path)
+        public async Task<List<MessagesObj>> Add(Attendance attendance, string path)
         {
-
-            BusinessLayerResult<AttendanceModelDto> result = new BusinessLayerResult<AttendanceModelDto>();
+            List<MessagesObj> messagesObjs = new List<MessagesObj>();
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(
-                path, attendanceModelDto);
+                path, attendance);
             response.EnsureSuccessStatusCode();
             if (response.IsSuccessStatusCode)
             {
-                result = JsonConvert.DeserializeObject<BusinessLayerResult<AttendanceModelDto>>(await response.Content.ReadAsStringAsync());
+                messagesObjs = JsonConvert.DeserializeObject <List<MessagesObj>> (await response.Content.ReadAsStringAsync());
             }
-            return result;
+            return messagesObjs;
         }
+
+       
 
         public async Task<List<AttendanceReport>> GetAttendanceReport(ReportDto reportDto, string path)
         {
@@ -57,7 +59,7 @@ namespace Acedemy.Mvc.UI.ApiService
             return response.StatusCode;
         }
 
-    
+
 
 
 

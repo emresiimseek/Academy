@@ -35,23 +35,34 @@ namespace Acedemy.Mvc.UI.Controllers
         public async Task<PartialViewResult> TakeAttendance(int Id)
         {
             CourseDto courseModel = await _courseApiService.GetById("https://localhost:44397/api/Course/" + Id);
+            
             return PartialView("_CourseStudentsPartial", courseModel);
         }
 
         [HttpPost]
         public async Task<JsonResult> SaveAttendance(AttendanceModelDto veri)
         {
-            BusinessLayerResult<AttendanceModelDto> result = new BusinessLayerResult<AttendanceModelDto>();
-            result = await _attendanceApiService.Add(veri, "https://localhost:44397/api/Attendance");
-            List<string> res = new List<string>();
-            MessagesObj messages = new MessagesObj();
-            if (result.Error.Count > 0)
+            List<MessagesObj> messagesObjs = new List<MessagesObj>();
+            Attendance attendance = new Attendance();
+            attendance.CourseId = veri.CourseId;
+            attendance.CreatedOn = veri.CreatedOn;
+            attendance.ModifiedOn = DateTime.Now;
+
+            for (int i = 0; i < veri.students.Length; i++)
             {
-                messages = result.Error.FirstOrDefault();
-                return Json(messages, JsonRequestBehavior.AllowGet);
+                AttendanceDetail attendanceDetail = new AttendanceDetail();
+                attendanceDetail.StudentId = veri.students[i];
+                attendanceDetail.CreatedOn = DateTime.Now;
+                attendanceDetail.ModifiedOn = DateTime.Now;
+                attendance.AttendanceDetails.Add(attendanceDetail);
             }
-            messages.Message = "Başarılı!";
-            return Json(messages, JsonRequestBehavior.AllowGet);
+            messagesObjs = await _attendanceApiService.Add(attendance, "https://localhost:44397/api/Attendance");
+            if (messagesObjs.Count==0)
+            {
+                return Json(new MessagesObj { Message="Kaydınız başarılı bir şekilde gerçekleştirilmiştir."},JsonRequestBehavior.AllowGet);
+            }
+            
+            return Json(messagesObjs.FirstOrDefault(), JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> AttendanceReport()

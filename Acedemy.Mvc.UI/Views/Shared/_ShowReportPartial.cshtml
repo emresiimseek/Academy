@@ -22,6 +22,7 @@
     <table class="table">
         <thead class="head">
             <tr>
+                <th scope="col">Kod</th>
                 <th scope="col">Kurs No</th>
                 <th scope="col">Kurs </th>
                 <th scope="col">Öğrenci</th>
@@ -33,14 +34,15 @@
 
             @foreach (AttendanceReport attendanceReport in Model)
             {
-                <tr id="@attendanceReport.AttendanceId">
+                <tr id="@attendanceReport.AttendanceDetailId">
+                    <td>@attendanceReport.AttendanceDetailId</td>
                     <td>@attendanceReport.CourseId</td>
                     <td>@attendanceReport.CourseName</td>
                     <td>@attendanceReport.StudentFullName</td>
                     <td class="date">@attendanceReport.CreatedOn</td>
                     <td style="text-align:center;">
 
-                        <button class="btn btn-danger" onclick="deleteFromAttendance('@attendanceReport.AttendanceId')">
+                        <button class="btn btn-danger" onclick="deleteFromAttendance('@attendanceReport.AttendanceDetailId')">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
 

@@ -3,6 +3,7 @@ C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Debug\Academy.Ent
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Debug\System.ComponentModel.Annotations.dll
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.csprojAssemblyReference.cache
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.csproj.CoreCompileInputs.cache
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.csproj.CopyComplete
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.dll

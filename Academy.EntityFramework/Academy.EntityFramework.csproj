@@ -48,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete\AttendanceDetail.cs" />
     <Compile Include="Concrete\ComplexTypes\AttendanceReport.cs" />
+    <Compile Include="Concrete\DTOs\AttendanceDetailModelDto.cs" />
     <Compile Include="Concrete\DTOs\AttendanceModelDto.cs" />
     <Compile Include="Concrete\Category.cs" />
     <Compile Include="Concrete\Course.cs" />

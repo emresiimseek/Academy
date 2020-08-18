@@ -17,7 +17,7 @@ namespace FrameworkCore.Concrete
 
         public int Add(TEntity entity)
         {
-            if (entity is Entity &&typeof(TEntity)!=typeof(Attendance))
+            if (entity is Entity && typeof(TEntity) != typeof(Attendance))
             {
                 Entity myEntity = entity as Entity;
                 DateTime dateTime = DateTime.Now;

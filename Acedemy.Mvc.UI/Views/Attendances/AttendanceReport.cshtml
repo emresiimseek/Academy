@@ -130,7 +130,7 @@
 
 
 
-    function deleteFromAttendance(attendanceId) {
+    function deleteFromAttendance(AttendanceDetailId) {
         var answer = window.confirm("Kaydı silmek istedinize emin misiniz?")
 
         if (answer == true) {
@@ -139,10 +139,10 @@
                 type: 'POST',
                 datatype: 'json',
                 async: true,
-                data: { Id: attendanceId },
+                data: { Id: AttendanceDetailId },
                 success: function (e) {
 
-                    document.getElementById(attendanceId).style.display = "none";
+                    document.getElementById(AttendanceDetailId).style.display = "none";
 
 
 

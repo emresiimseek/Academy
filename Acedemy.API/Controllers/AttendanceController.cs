@@ -1,6 +1,7 @@
 ﻿using Academy.EntityFramework.Concrete;
 using Academy.EntityFramework.Concrete.ComplexTypes;
 using Academy.EntityFramework.Concrete.DTOs;
+using Academy.EntityFramework.Messages;
 using Acedemy.API.Filters;
 using Acedemy.API.Models.Dto;
 using Acedemy.Business;
@@ -37,13 +38,13 @@ namespace Acedemy.API.Controllers
         // DELETE: api/Attendance/5
         public void Delete(int id)
         {
-            Attendance attendance = new Attendance();
-            attendance= _attendanceService.Get(id);
+            AttendanceDetail attendance = new AttendanceDetail();
+            attendance=_attendanceService.GetAttendanceDetail(id);
             if (attendance == null)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
-                    Content = new StringContent(string.Format($"{0} id'li öğrenci bulunamadı.", id)),
+                    Content = new StringContent(string.Format($"{0} id'li kayıt bulunamadı.", id)),
                     ReasonPhrase = "Course Not Found",
                     StatusCode = HttpStatusCode.NotFound
                 };
@@ -54,10 +55,12 @@ namespace Acedemy.API.Controllers
 
 
         // POST: api/Attendance
-        public BusinessLayerResult<AttendanceModelDto> Post(AttendanceModelDto attendanceModelDto)
+        public List<MessagesObj> Post(AttendanceDto attendanceDto)
         {
-            BusinessLayerResult<AttendanceModelDto> result = _attendanceService.SaveAttendance(attendanceModelDto);
-            return result;
+            Attendance attendance = _autoMapperBase.MapToSameType<AttendanceDto, Attendance>(attendanceDto);
+            //attendance= _attendanceService.CreateAttendance(attendance);
+            BusinessLayerResult<Attendance> result  = _attendanceService.SaveAttendance(attendance);
+            return result.Error;
         }
 
 

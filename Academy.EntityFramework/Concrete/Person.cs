@@ -11,7 +11,7 @@ namespace Academy.EntityFramework.Concrete
     public class Person : Entity
     {
 
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity),Key]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
         public int Id { get; set; }
         [Required, StringLength(200)]
         public string FirstName { get; set; }
@@ -21,8 +21,5 @@ namespace Academy.EntityFramework.Concrete
         public char Gender { get; set; }
         [Required]
         public DateTime Birthdate { get; set; }
-
-
-
     }
 }

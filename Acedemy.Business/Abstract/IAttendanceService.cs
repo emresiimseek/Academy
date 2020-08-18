@@ -11,8 +11,10 @@ namespace Acedemy.Business.Abstract
 {
     public interface IAttendanceService:IService<Attendance>
     {
-        BusinessLayerResult<AttendanceModelDto> SaveAttendance(AttendanceModelDto attendanceModelDto);
+        BusinessLayerResult<Attendance> SaveAttendance(Attendance attendances);
+        Attendance CreateAttendance(Attendance attendances);
         List<AttendanceReport> GetAttendanceReport(ReportDto reportDto);
-        void DeleteStudentFromAttendance(Attendance attendance);
+        void DeleteStudentFromAttendance(AttendanceDetail attendanceDetail);
+        AttendanceDetail GetAttendanceDetail(int Id);
     }
 }

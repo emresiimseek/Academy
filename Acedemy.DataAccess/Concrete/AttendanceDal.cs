@@ -17,12 +17,14 @@ namespace Acedemy.DataAccess.Concrete
         {
             AcedemyContext context = new AcedemyContext();
             var result = from a in context.Attendances
+                         join ad in context.AttendanceDetails on a.Id equals ad.AttendanceId
+                         join s in context.Students on ad.StudentId equals s.Id
                          join c in context.Courses on a.CourseId equals c.CourseId
-                         join s in context.Students on a.StudentId equals s.Id
-                         where a.CourseId==reportDto.CourseId && a.CreatedOn==reportDto.ReportDate
-                         
+                         where a.CreatedOn == reportDto.ReportDate && c.CourseId == reportDto.CourseId
+
                          select new AttendanceReport
                          {
+                             AttendanceDetailId = ad.AttendanceDetailId,
                              AttendanceId=a.Id,
                              CourseId = c.CourseId,
                              CourseName = c.Title,

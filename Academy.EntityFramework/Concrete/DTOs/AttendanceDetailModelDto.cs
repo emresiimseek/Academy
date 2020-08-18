@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Academy.EntityFramework.Concrete.DTOs
 {
-    public class AttendanceModelDto
+    public class AttendanceDetailModelDto
     {
-        public int CourseId { get; set; }
-        public int[] students { get; set; }
+        public int AttendanceId { get; set; }
+        public int StudentId { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CreatedOn { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime ModifiedOn { get; set; }
     }
 }

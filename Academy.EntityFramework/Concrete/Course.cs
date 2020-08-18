@@ -22,7 +22,6 @@ namespace Academy.EntityFramework.Concrete
         public virtual List<Instructor> Instructors { get; set; }
         [JsonIgnore]
         public virtual List<Student> Students { get; set; }
-        public virtual List<Attendance> Attendances { get; set; }
 
     }
 }

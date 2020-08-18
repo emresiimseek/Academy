@@ -55,10 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAttendanceDal.cs" />
+    <Compile Include="Abstract\IAttendanceDetailDal.cs" />
     <Compile Include="Abstract\ICourseDal.cs" />
     <Compile Include="Abstract\IStudentDal.cs" />
     <Compile Include="AcedemyContext.cs" />
     <Compile Include="Concrete\AttendanceDal.cs" />
+    <Compile Include="Concrete\AttendanceDetailDal.cs" />
     <Compile Include="Concrete\CourseDal.cs" />
     <Compile Include="Concrete\InstructorCoursesDal.cs" />
     <Compile Include="Concrete\StudentDal.cs" />

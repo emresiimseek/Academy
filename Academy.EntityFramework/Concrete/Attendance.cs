@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Academy.EntityFramework.Concrete
 {
-    public class Attendance:Entity
+    public class Attendance : Entity
     {
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Attendance()
+        {
+            AttendanceDetails = new List<AttendanceDetail>();
+        }
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity),Key]
         public int Id { get; set; }
-        [Key, Column(Order = 1)]
-        public int StudentId { get; set; }
-        [Key, Column(Order = 2)]
         public int CourseId { get; set; }
-
-        public Student Student { get; set; }
-        public Course  Course { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual List<AttendanceDetail> AttendanceDetails { get; set; }
     }
 }

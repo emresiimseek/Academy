@@ -16,9 +16,11 @@ namespace Acedemy.Business.Concrete
     public class AttendanceManager : IAttendanceService
     {
         private IAttendanceDal _attendanceDal { get; set; }
-        public AttendanceManager(IAttendanceDal attendanceDal)
+        private IAttendanceDetailDal _AttendanceDetailDal { get; set; }
+        public AttendanceManager(IAttendanceDal attendanceDal, IAttendanceDetailDal AttendanceDetailDal)
         {
             _attendanceDal = attendanceDal;
+            _AttendanceDetailDal = AttendanceDetailDal;
         }
         public void Add(Attendance attendance)
         {
@@ -33,7 +35,7 @@ namespace Acedemy.Business.Concrete
 
         public Attendance Get(int id)
         {
-            return _attendanceDal.Get(a => a.Id == id);
+            return null;
         }
 
 
@@ -47,30 +49,29 @@ namespace Acedemy.Business.Concrete
         {
             throw new NotImplementedException();
         }
-
-        public BusinessLayerResult<AttendanceModelDto> SaveAttendance(AttendanceModelDto attendanceModelDto)
+        public Attendance CreateAttendance(Attendance attendances)
         {
-            BusinessLayerResult<AttendanceModelDto> result = new BusinessLayerResult<AttendanceModelDto>();
-            Attendance attendance = new Attendance();
-            attendance.CourseId = attendanceModelDto.CourseId;
-            attendance.ModifiedOn = DateTime.Now;
-            attendance.CreatedOn = attendanceModelDto.CreatedOn;
-            foreach (int studentId in attendanceModelDto.Students)
+            attendances.AttendanceDetails = null;
+            _attendanceDal.Add(attendances);
+            attendances= _attendanceDal.Get(x => x.CourseId == attendances.CourseId && attendances.CreatedOn == attendances.CreatedOn);
+            return attendances;
+        }
+
+        public BusinessLayerResult<Attendance> SaveAttendance(Attendance attendances)
+        {
+            BusinessLayerResult<Attendance> res = new BusinessLayerResult<Attendance>();
+            res.Result = attendances;
+            if (_attendanceDal.Get(x=>x.CourseId==attendances.CourseId&&x.CreatedOn==attendances.CreatedOn)!=null)
             {
-                attendance.StudentId = studentId;
-                if (_attendanceDal.Get(a => a.CourseId == attendance.CourseId && a.StudentId == attendance.StudentId) != null)
-                {
-                    result.AddError(MessagesCodes.AlreadyExist, $"Kayıt daha önce zaten gerçekleştirilmiş.");
-                    return result;
-                }
-
-                _attendanceDal.Add(attendance);
-
+                res.AddError(MessagesCodes.AlreadyExist, $"{attendances.CreatedOn} tarihli yoklama zaten yapılmış.");
+                return res;
             }
-            result.Result = attendanceModelDto;
-            return result;
+            _attendanceDal.Add(attendances);
+            AttendanceDetail attendanceDetail = new AttendanceDetail { Attendance=attendances};
+            return res;
 
         }
+
 
         public List<AttendanceReport> GetAttendanceReport(ReportDto reportDto)
         {
@@ -79,9 +80,14 @@ namespace Acedemy.Business.Concrete
             return attendanceReports;
         }
 
-        public void DeleteStudentFromAttendance(Attendance attendance)
+        public void DeleteStudentFromAttendance(AttendanceDetail attendanceDetail)
         {
-            var res = _attendanceDal.Delete(attendance);
+            var res = _AttendanceDetailDal.Delete(attendanceDetail);
+        }
+
+        public AttendanceDetail GetAttendanceDetail(int Id)
+        {
+            return _AttendanceDetailDal.Get(ad => ad.AttendanceDetailId == Id);
         }
     }
 }
