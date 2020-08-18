@@ -106,6 +106,7 @@ namespace Acedemy.Mvc.UI.Controllers
             if (TempData[$"chart{id}"]!= null)
             {
                 chartModel= TempData[$"chart{id}"] as ChartModel;
+                TempData.Remove($"chart{id}");
             }
             return View(chartModel);
         }

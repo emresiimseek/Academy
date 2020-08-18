@@ -65,7 +65,10 @@
         </table>
     </div>
 </div>
-<div id="forModal"></div>
+<div id="forModal">
+
+
+</div>
 
 
 
@@ -122,9 +125,11 @@
             async: true,
             data: { reportDto: model },
             success: function (e) {
-                $("#forModal").append(e);
-                $('#chartModal').modal('show')
+                $("#forModal").html(e);
+               
             }
+        }).done(function () {
+            $('#chartModal').modal('show');
         });
     }
 
