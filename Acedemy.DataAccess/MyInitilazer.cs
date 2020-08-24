@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Acedemy.DataAccess
 {
-    public class MyInitilazer : CreateDatabaseIfNotExists<AcedemyContext>
+    public class MyInitilazer : DropCreateDatabaseAlways<AcedemyContext>
     {
         protected override void Seed(AcedemyContext context)
         {
@@ -33,7 +33,7 @@ namespace Acedemy.DataAccess
                     student.Birthdate = FakeData.DateTimeData.GetDatetime();
                     student.CreatedOn = FakeData.DateTimeData.GetDatetime();
                     student.ModifiedOn = FakeData.DateTimeData.GetDatetime();
-                    student.Absence = random.Next(0,30);
+                    student.Absence = random.Next(0, 30);
                     student.EnrollmentDate = FakeData.DateTimeData.GetDatetime();
                     students.Add(student);
 
@@ -49,11 +49,14 @@ namespace Acedemy.DataAccess
                 ınstructor.ModifiedOn = FakeData.DateTimeData.GetDatetime();
                 ınstructor.Biography = FakeData.TextData.GetSentence();
                 ınstructor.HireDate = FakeData.DateTimeData.GetDatetime();
+                ınstructor.Password = "dw0RNMm7fVs=";
+                ınstructor.UserName = FakeData.NameData.GetFirstName();
 
                 course.Instructors = new List<Instructor> { ınstructor };
 
                 context.Courses.Add(course);
                 context.SaveChanges();
+
 
 
 

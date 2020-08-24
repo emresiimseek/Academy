@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Academy.EntityFramework.Concrete
 {
+    [Table("Students")]
     public class Student : Person
     {
         [Required]

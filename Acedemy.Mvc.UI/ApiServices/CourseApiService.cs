@@ -6,9 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Acedemy.Mvc.UI.ApiService
 {
@@ -19,26 +22,28 @@ namespace Acedemy.Mvc.UI.ApiService
         {
             _httpClient = httpClient;
         }
-        public async Task<List<CourseDto>> GetAllAsync(string path)
+        public async Task<List<CourseDto>> GetAllAsync(string path,string accessToken)
         {
 
             List<CourseDto> courseModels = null;
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             HttpResponseMessage response = await _httpClient.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                courseModels = JsonConvert.DeserializeObject<List<CourseDto>>(await response.Content.ReadAsStringAsync());
+                courseModels =  JsonConvert.DeserializeObject<List<CourseDto>>(await response.Content.ReadAsStringAsync());
             }
             else
             {
                 courseModels = null;
             }
-            return courseModels;
+            return  courseModels;
         }
 
-        public async Task<CourseDto> GetById(string path)
+        public async Task<CourseDto> GetById(string path, string accessToken)
         {
 
             CourseDto courseModel = null;
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             HttpResponseMessage response = await _httpClient.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
@@ -51,17 +56,18 @@ namespace Acedemy.Mvc.UI.ApiService
             return courseModel;
         }
 
-        public async Task Add(CourseDto courseModel, string path)
+        public async Task Add(CourseDto courseModel, string path,string accessToken)
         {
-
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(
                 path, courseModel);
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<List<CourseDto>> GetAllWithStudentAsync(string path)
+        public async Task<List<CourseDto>> GetAllWithStudentAsync(string path, string accessToken)
         {
 
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             List<CourseDto> courseModels = null;
             HttpResponseMessage response = await _httpClient.GetAsync(path);
             if (response.IsSuccessStatusCode)
@@ -76,8 +82,10 @@ namespace Acedemy.Mvc.UI.ApiService
 
         }
 
-        public async Task<CourseDto> UpdateCourseAsync(CourseDto courseModel, string path)
+        public async Task<CourseDto> UpdateCourseAsync(CourseDto courseModel, string path, string accessToken)
         {
+            //_httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync(
                 path, courseModel);
             response.EnsureSuccessStatusCode();
@@ -87,8 +95,18 @@ namespace Acedemy.Mvc.UI.ApiService
             return courseModel;
         }
 
-        public async Task<HttpStatusCode> DeleteCourseAsync(string path)
+
+        public async Task<HttpStatusCode> DeleteCourseAsync(string path, string accessToken)
         {
+            //_httpClient.DeleteAsync(new HttpRequestMessage()
+            //{
+            //    RequestUri = new Uri(path),
+            //    Method = HttpMethod.Post,
+            //    Content = new StringContent("Deelete"),
+            //    Headers = new HttpRequestHeaders() { new AuthenticationHeaderValue("Bearer", accessToken) }
+            //});
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _httpClient.DeleteAsync(path);
             return response.StatusCode;
         }

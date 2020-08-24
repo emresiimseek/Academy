@@ -8,12 +8,22 @@ using System.Threading.Tasks;
 
 namespace Academy.EntityFramework.Concrete
 {
+    [Table("Instructors")]
     public class Instructor : Person
     {
+    
+    
         [Required]
         public DateTime HireDate { get; set; }
-        [Required, StringLength(500)]
+        [ StringLength(500)]
         public string Biography { get; set; }
+        [Required, MaxLength(25)]
+        public string UserName { get; set; }
+        [Required, MaxLength(25)]
+        public string Password { get; set; }
         public virtual List<Course> Courses { get; set; }
+
+        
+
     }
 }

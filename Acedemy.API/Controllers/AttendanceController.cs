@@ -17,6 +17,7 @@ using System.Web.Http;
 namespace Acedemy.API.Controllers
 {
     [ValidationFilter]
+    [Authorize]
     public class AttendanceController : ApiController
     {
         private IAttendanceService _attendanceService { get; set; }
@@ -36,6 +37,8 @@ namespace Acedemy.API.Controllers
 
         }
         // DELETE: api/Attendance/5
+        [HttpDelete]
+        [Route("api/Attendance/{id}")]
         public void Delete(int id)
         {
             AttendanceDetail attendance = new AttendanceDetail();
@@ -65,6 +68,8 @@ namespace Acedemy.API.Controllers
 
 
         // PUT: api/Attendance/5
+        [HttpPut]
+        [Route("api/Attendance/{id}")]
         public void Put(int id, [FromBody] string value)
         {
 

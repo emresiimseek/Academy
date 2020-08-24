@@ -18,7 +18,7 @@ namespace Acedemy.DataAccess.Concrete
             AcedemyContext context = new AcedemyContext();
             var result = from a in context.Attendances
                          join ad in context.AttendanceDetails on a.Id equals ad.AttendanceId
-                         join s in context.Students on ad.StudentId equals s.Id
+                         join s in context.People.OfType<Student>() on ad.StudentId equals s.Id
                          join c in context.Courses on a.CourseId equals c.CourseId
                          where a.CreatedOn == reportDto.ReportDate && c.CourseId == reportDto.CourseId
 

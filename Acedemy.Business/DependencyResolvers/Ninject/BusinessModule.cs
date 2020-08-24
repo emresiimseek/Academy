@@ -30,6 +30,8 @@ namespace Acedemy.Business.DependencyResolvers.Ninject
             Bind<IAttendanceDal>().To<AttendanceDal>().InSingletonScope();
             Bind<IAttendanceService>().To<AttendanceManager>().InSingletonScope();
             Bind<IAttendanceDetailDal>().To<AttendanceDetailDal>().InSingletonScope();
+            Bind<IUserDal>().To<UserDal>().InSingletonScope();
+            Bind<IUserService>().To<UserManager>().InSingletonScope();
           
             //Bind<DbContext>().To<AcedemyContext>();
 

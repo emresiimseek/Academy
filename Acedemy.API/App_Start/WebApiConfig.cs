@@ -11,6 +11,7 @@ namespace Acedemy.API
         {
             // Web API configuration and services
 
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -19,6 +20,7 @@ namespace Acedemy.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            
         }
     }
 }

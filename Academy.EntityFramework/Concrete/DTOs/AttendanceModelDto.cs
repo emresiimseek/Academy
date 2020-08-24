@@ -11,7 +11,6 @@ namespace Academy.EntityFramework.Concrete.DTOs
     {
         public int CourseId { get; set; }
         public int[] students { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
     }
 }

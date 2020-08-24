@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace Acedemy.API.Controllers
 {
+    [Authorize]
     public class StudentController : ApiController
     {
         private IStudentService _studentService { get; set; }

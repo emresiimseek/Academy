@@ -15,9 +15,7 @@ namespace Acedemy.API.Models.Dto
         }
         public int AttendaceId { get; set; }
         public int CourseId { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CreatedOn { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ModifiedOn { get; set; }
         public virtual Course Course { get; set; }
         public virtual List<AttendanceDetail> AttendanceDetails { get; set; }

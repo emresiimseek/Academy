@@ -21,5 +21,6 @@ namespace Academy.EntityFramework.Concrete
         public char Gender { get; set; }
         [Required]
         public DateTime Birthdate { get; set; }
+    
     }
 }

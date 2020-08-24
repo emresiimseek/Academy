@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Acedemy.Mvc.UI.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public HomeController(AttendanceApiService attendanceApiService)

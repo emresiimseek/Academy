@@ -15,6 +15,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,11 +57,15 @@
   <ItemGroup>
     <Compile Include="Abstract\IAttendanceService.cs" />
     <Compile Include="Abstract\ICourseService.cs" />
+    <Compile Include="Abstract\IUserService.cs" />
+    <Compile Include="Abstract\IValidateService.cs" />
     <Compile Include="Abstract\IService.cs" />
     <Compile Include="Abstract\IStudentService.cs" />
     <Compile Include="BusinessLayerResult.cs" />
     <Compile Include="Concrete\AttendanceManager.cs" />
     <Compile Include="Concrete\CourseManager.cs" />
+    <Compile Include="Concrete\UserManager.cs" />
+    <Compile Include="Concrete\ValidateManager.cs" />
     <Compile Include="Concrete\StudentManager.cs" />
     <Compile Include="DependencyResolvers\Ninject\BusinessModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

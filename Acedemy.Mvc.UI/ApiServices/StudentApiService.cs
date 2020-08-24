@@ -16,10 +16,11 @@ namespace Acedemy.Mvc.UI.ApiService
         {
             _httpClient = httpClient;
         }
-        public async Task<List<StudentDto>> GetAllAsync(string path)
+        public async Task<List<StudentDto>> GetAllAsync(string path ,string accessToken)
         {
 
             List<StudentDto> studentModels = null;
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             HttpResponseMessage response = await _httpClient.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
@@ -32,19 +33,5 @@ namespace Acedemy.Mvc.UI.ApiService
             return studentModels;
         }
 
-        //public async Task<StudentModel> GetByIdStudentsAsync(int Id)
-        //{
-
-        //    var response = await _httpClient.GetAsync($"Department/{Id}");
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        DepartmentDto departmentDto = JsonConvert.DeserializeObject<DepartmentDto>(await response.Content.ReadAsStringAsync());
-        //        return departmentDto;
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
     }
 }

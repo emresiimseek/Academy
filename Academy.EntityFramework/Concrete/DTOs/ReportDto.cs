@@ -10,7 +10,8 @@ namespace Academy.EntityFramework.Concrete.DTOs
     {
         [Required]
         public int CourseId { get; set; }
-        [Required,DataType(DataType.DateTime)]
+
+        public string ReportDateAsString { get; set; }
         public DateTime ReportDate { get; set; }
      
     }

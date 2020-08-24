@@ -16,7 +16,8 @@ namespace Acedemy.DataAccess.Concrete
         {
             using (AcedemyContext acedemyContext = new AcedemyContext())
             {
-                return acedemyContext.Set<Course>().Include("Students").Include("Instructors").ToList();
+                List<Course> courses= acedemyContext.Set<Course>().Include("Instructors").Include("Students").ToList();
+                return courses;
             }
         }
 

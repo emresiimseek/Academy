@@ -2,6 +2,7 @@
 using Acedemy.API.Filters;
 using Acedemy.API.Models.Dto;
 using Acedemy.Business.Abstract;
+using Acedemy.DataAccess;
 using Acedemy.DataAccess.Concrete;
 using FrameworkCore.Utilities.Mappings;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace Acedemy.API.Controllers
 {
     [ValidationFilter]
+    [Authorize]
     public class CourseController : ApiController
     {
         private ICourseService _courseService { get; set; }
@@ -25,15 +28,16 @@ namespace Acedemy.API.Controllers
             _autoMapperBase = autoMapperBase;
         }
         // GET: api/Test
+        [HttpGet]
         public List<CourseDto> GetAll()
         {
-            InstructorCoursesDal ınstructorCourses = new InstructorCoursesDal();
-            ınstructorCourses.Test();
-            List<Course> courses = _courseService.GetAll();
+         
+            List<Course> courses = _courseService.GetAllCourseWithChild();
             List<CourseDto> courseModels = _autoMapperBase.MapToSameList<Course, CourseDto>(courses);
             return courseModels;
         }
         [Route("api/Course/People")]
+        [HttpGet]
         public List<CourseDto> GetAllCourseWithInstructors()
         {
             List<Course> courses = _courseService.GetAllCourseWithChild();
@@ -42,7 +46,8 @@ namespace Acedemy.API.Controllers
         }
 
         // GET: api/Test/5
-       
+        [HttpGet]
+        [Route("api/Course/{id}")]
         public CourseDto Get(int id)
         {
             Course course = _courseService.Get(id);
@@ -61,6 +66,7 @@ namespace Acedemy.API.Controllers
         }
 
         // POST: api/Test
+        [HttpPost]
         public void Post([FromBody] CourseDto courseModel)
         {
 
@@ -68,6 +74,8 @@ namespace Acedemy.API.Controllers
         }
 
         // PUT: api/Test/5
+        [HttpPut]
+        [Route("api/Course/{id}")]
         public CourseDto Put(int id, [FromBody] CourseDto courseModel)
         {
             Course course = _courseService.Get(id);
@@ -77,7 +85,7 @@ namespace Acedemy.API.Controllers
                 {
                     Content = new StringContent(string.Format($"{0} id'li kurs bulunamadı.", id)),
                     ReasonPhrase = "Course Not Found",
-                    StatusCode=HttpStatusCode.NotFound
+                    StatusCode = HttpStatusCode.NotFound
                 };
                 throw new HttpResponseException(response);
             }
@@ -88,6 +96,8 @@ namespace Acedemy.API.Controllers
         }
 
         // DELETE: api/Test/5
+        [HttpDelete]
+        [Route("api/Course/{id}")]
         public void Delete(int id)
         {
             Course course = _courseService.Get(id);

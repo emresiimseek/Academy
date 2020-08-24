@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace Acedemy.DataAccess
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class AcedemyContext : DbContext
     {
         public AcedemyContext()
         {
-            Database.SetInitializer(new MyInitilazer()); //when you initilazer open this row
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<AcedemyContext, Migrations.Configuration>());
+            //Database.SetInitializer(new MyInitilazer()); //when you initilazer open this row
             this.Configuration.LazyLoadingEnabled = false;
         }
 
@@ -26,8 +28,6 @@ namespace Acedemy.DataAccess
         public DbSet<Person> People { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
-        public DbSet<Instructor> Instructors { get; set; }
-        public DbSet<Student> Students { get; set; }
         public DbSet<AttendanceDetail> AttendanceDetails { get; set; }
     }
 

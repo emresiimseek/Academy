@@ -25,11 +25,12 @@ namespace Acedemy.Mvc.UI.ApiService
             _httpClient = httpClient;
         }
 
-        public async Task<List<MessagesObj>> Add(Attendance attendance, string path)
+        public async Task<List<MessagesObj>> Add(AttendanceDto attendanceDto, string path, string accessToken)
         {
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             List<MessagesObj> messagesObjs = new List<MessagesObj>();
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(
-                path, attendance);
+                path, attendanceDto);
             response.EnsureSuccessStatusCode();
             if (response.IsSuccessStatusCode)
             {
@@ -40,9 +41,11 @@ namespace Acedemy.Mvc.UI.ApiService
 
        
 
-        public async Task<List<AttendanceReport>> GetAttendanceReport(ReportDto reportDto, string path)
+        public async Task<List<AttendanceReport>> GetAttendanceReport(ReportDto reportDto, string path, string accessToken)
         {
+           
             var stringContent = new StringContent(JsonConvert.SerializeObject(reportDto), Encoding.UTF8, "application/json");
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             List<AttendanceReport> attendanceReports = new List<AttendanceReport>();
             HttpResponseMessage response = await _httpClient.PostAsync(
                  path, stringContent);
@@ -53,8 +56,9 @@ namespace Acedemy.Mvc.UI.ApiService
             return attendanceReports;
         }
 
-        public async Task<HttpStatusCode> Delete(string path)
+        public async Task<HttpStatusCode> Delete(string path, string accessToken)
         {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _httpClient.DeleteAsync(path);
             return response.StatusCode;
         }

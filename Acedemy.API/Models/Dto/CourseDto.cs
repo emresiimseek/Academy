@@ -1,4 +1,5 @@
 ﻿using Academy.EntityFramework.Concrete;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ namespace Acedemy.API.Models.Dto
 {
     public class CourseDto
     {
+
         public int CourseId { get; set; }
         [Required, StringLength(200)]
         [DisplayName("Kurs Adı")]
@@ -24,8 +26,6 @@ namespace Acedemy.API.Models.Dto
         [DisplayName("Değiştirme Tarihi")]
         public DateTime ModifiedOn { get; set; }
         public List<Instructor> Instructors { get; set; }
-        public virtual List<Attendance> Attendances { get; set; }
-        public virtual List<Student> Students { get; set; }
-        public virtual List<Person> People { get; set; }
+        public  List<Student> Students { get; set; }
     }
 }

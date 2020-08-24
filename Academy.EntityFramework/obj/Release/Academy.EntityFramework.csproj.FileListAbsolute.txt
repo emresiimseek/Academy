@@ -1,0 +1,10 @@
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Release\Academy.EntityFramework.dll
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Release\Academy.EntityFramework.pdb
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Release\Newtonsoft.Json.dll
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Release\System.ComponentModel.Annotations.dll
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\bin\Release\Newtonsoft.Json.xml
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Release\Academy.EntityFramework.csprojAssemblyReference.cache
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Release\Academy.EntityFramework.csproj.CoreCompileInputs.cache
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Release\Academy.EntityFramework.csproj.CopyComplete
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Release\Academy.EntityFramework.dll
+C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Release\Academy.EntityFramework.pdb
