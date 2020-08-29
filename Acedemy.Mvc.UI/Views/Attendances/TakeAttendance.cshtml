@@ -106,7 +106,6 @@
                 model.Students = isHere;
 
                 model.CreatedOn =  $("#datepicker").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
-                alert(model.CreatedOn);
                 $.ajax({
                     url: '/Attendances/SaveAttendance',
                     type: 'POST',

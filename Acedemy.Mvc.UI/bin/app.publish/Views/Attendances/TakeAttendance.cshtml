@@ -1,0 +1,135 @@
+﻿@model  List<CourseDto>
+@{
+    ViewBag.Title = "TakeAttendance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Acedemy.API.Models.Dto;
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+</head>
+
+<div class="row" id="mainarea">
+
+    <p>Lütfen yoklama yapmak istediğiniz kursu seçiniz.</p>
+
+    @*
+        <input type="submit" name="name" value="Yeni Kurs Ekle" />*@
+
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr class="header">
+                <th>Kurs No</th>
+                <th>Kurs Adı</th>
+                <th>Kurs Açıklama</th>
+                <th>Kurs Toplam Süre</th>
+                <th>Eğitmenler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CourseDto course in Model)
+            {
+                <tr class="customtr clickable-row" onclick="clickablerow('@course.CourseId')">
+                    <td>@course.CourseId   <input type="text" class="hiddencourse" name="name" value="@course.CourseId" /></td>
+
+                    <td>@course.Title</td>
+                    <td>@course.Description</td>
+                    <td>@course.TotalTime</td>
+                    @foreach (Academy.EntityFramework.Concrete.Instructor instructorModel in course.Instructors)
+                    {
+                        <td>@instructorModel.FirstName @instructorModel.LastName</td>
+
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<script>
+    var isHere = [];
+    function hereorNot(Id) {
+
+        if ($("." + Id).prop("checked") == true) {
+
+            $("." + Id).css("background-color", "red");
+            $("." + Id).prop('checked', false);
+
+            var index = isHere.indexOf(Id);
+            isHere.splice(index, 1);
+
+        }
+        else {
+            $("." + Id).css("background-color", "green");
+            $("." + Id).prop('checked', true);
+
+
+            isHere.push(Id);
+
+
+
+
+
+        }
+        document.getElementById("isThere").innerHTML = isHere;
+    }
+
+    function clickablerow(CourseId) {
+        $.ajax({
+            url: '/Attendances/TakeAttendance',
+            type: 'POST',
+            datatype: 'json',
+            async: true,
+            data: { Id: CourseId },
+            success: function (e) {
+                $("#mainarea").replaceWith(e);
+            }
+        });
+    }
+
+    $(document).on('click', '#save', function () {
+
+        //alert(isHere);
+        if (isHere.length == 0) {
+            alert("Lütfen listeden öğrenci seçiniz.")
+        }
+        else {
+            var answer = window.confirm("Devam etmeniz durumunda yoklama kaydedilecektir?")
+
+            if (answer == true) {
+
+                var model = new Object();
+                model.CourseId = $(".deneme2").val();
+                model.Students = isHere;
+
+                model.CreatedOn =  $("#datepicker").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
+                alert(model.CreatedOn);
+                $.ajax({
+                    url: '/Attendances/SaveAttendance',
+                    type: 'POST',
+                    datatype: 'json',
+                    async: true,
+                    data: { veri: model },
+                    success: function (e) {
+
+                        if (e.Message != "Başarılı!") {
+                            alert(e.Message);
+                        }
+                        else {
+                            alert(e.Message);
+                        }
+
+                    }
+                });
+            }
+        }
+
+
+
+    });
+
+</script>
+

@@ -29,14 +29,14 @@ namespace Acedemy.Mvc.UI.Controllers
         }
         public async Task<ActionResult> TakeAttendance()
         {
-            List<CourseDto> courseModels = await _courseApiService.GetAllAsync("http://academy.emresimsek.info/api/Course/People", Session["access_token"] as String);
+            List<CourseDto> courseModels = await _courseApiService.GetAllAsync("http://academyapi.emresimsek.info/api/Course/People", Session["access_token"] as String);
             List<CourseDto> courses = courseModels;
             return View(courses);
         }
         [HttpPost]
         public async Task<PartialViewResult> TakeAttendance(int Id)
         {
-            CourseDto courseModel = await _courseApiService.GetById("http://academy.emresimsek.info/api/Course/" + Id,Session["access_token"] as String);
+            CourseDto courseModel = await _courseApiService.GetById("http://academyapi.emresimsek.info/api/Course/" + Id,Session["access_token"] as String);
             
             return PartialView("_CourseStudentsPartial", courseModel);
         }
@@ -58,7 +58,7 @@ namespace Acedemy.Mvc.UI.Controllers
                 attendanceDetail.ModifiedOn = DateTime.Now;
                 attendanceDto.AttendanceDetails.Add(attendanceDetail);
             }
-            messagesObjs = await _attendanceApiService.Add(attendanceDto, "http://academy.emresimsek.info/api/Attendance", Session["access_token"] as String);
+            messagesObjs = await _attendanceApiService.Add(attendanceDto, "http://academyapi.emresimsek.info/api/Attendance", Session["access_token"] as String);
             if (messagesObjs.Count==0)
             {
                 return Json(new MessagesObj { Message=$"Kaydınız başarılı bir şekilde gerçekleştirilmiştir."},JsonRequestBehavior.AllowGet);
@@ -70,7 +70,7 @@ namespace Acedemy.Mvc.UI.Controllers
         public async Task<ActionResult> AttendanceReport()
         {
             
-            List<CourseDto> courseDtos = await _courseApiService.GetAllAsync("http://academy.emresimsek.info/api/Course/People", Session["access_token"] as String);
+            List<CourseDto> courseDtos = await _courseApiService.GetAllAsync("http://academyapi.emresimsek.info/api/Course/People", Session["access_token"] as String);
            
 
             return View(courseDtos);
@@ -79,7 +79,7 @@ namespace Acedemy.Mvc.UI.Controllers
         public async Task<PartialViewResult> AttendanceReport(ReportDto reportDto)
         {
             reportDto.ReportDate= DateTime.ParseExact(reportDto.ReportDateAsString, "dd/MM/yyyy", null);
-            List<AttendanceReport> attendanceReports = await _attendanceApiService.GetAttendanceReport(reportDto, "http://academy.emresimsek.info/api/Attendance/Report", Session["access_token"] as String);
+            List<AttendanceReport> attendanceReports = await _attendanceApiService.GetAttendanceReport(reportDto, "http://academyapi.emresimsek.info/api/Attendance/Report", Session["access_token"] as String);
 
             return PartialView("_ShowReportPartial", attendanceReports);
         }
@@ -87,17 +87,17 @@ namespace Acedemy.Mvc.UI.Controllers
         [HttpPost]
         public async Task<HttpStatusCode> DeleteFromAttendance(int Id)
         {
-            HttpStatusCode httpStatusCode = await _attendanceApiService.Delete("http://academy.emresimsek.info/api/Attendance/" + Id,Session["access_token"] as String);
+            HttpStatusCode httpStatusCode = await _attendanceApiService.Delete("http://academyapi.emresimsek.info/api/Attendance/" + Id,Session["access_token"] as String);
             return httpStatusCode;
         }
         [HttpPost]
         public async Task<PartialViewResult> CreateChart(ReportDto reportDto)
         {
             reportDto.ReportDate = DateTime.ParseExact(reportDto.ReportDateAsString, "dd/MM/yyyy", null);
-            CourseDto courseDto = await _courseApiService.GetById("http://academy.emresimsek.info/api/Course/" + reportDto.CourseId, Session["access_token"] as String);
+            CourseDto courseDto = await _courseApiService.GetById("http://academyapi.emresimsek.info/api/Course/" + reportDto.CourseId, Session["access_token"] as String);
             ChartModel chartModel = new ChartModel();
             chartModel.totalSudent = courseDto.Students.Count();
-            List<AttendanceReport> attendanceReports = await _attendanceApiService.GetAttendanceReport(reportDto, "http://academy.emresimsek.info/api/Attendance/Report", Session["access_token"] as String);
+            List<AttendanceReport> attendanceReports = await _attendanceApiService.GetAttendanceReport(reportDto, "http://academyapi.emresimsek.info/api/Attendance/Report", Session["access_token"] as String);
             chartModel.totalParticipant= attendanceReports.Count();
             TempData[$"chart{reportDto.CourseId}"] = chartModel;
             chartModel.CourseId = reportDto.CourseId;

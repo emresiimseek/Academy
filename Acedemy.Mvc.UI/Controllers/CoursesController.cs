@@ -23,7 +23,7 @@ namespace Acedemy.Mvc.UI.Controllers
         public async Task<ActionResult> Index()
         
         {
-            List<CourseDto> courseModels = await _courseApiService.GetAllAsync("http://academy.emresimsek.info/api/Course/People", Session["access_token"] as String);
+            List<CourseDto> courseModels = await _courseApiService.GetAllAsync("http://academyapi.emresimsek.info/api/Course/People", Session["access_token"] as String);
             return View(courseModels);
         }
 
@@ -34,7 +34,7 @@ namespace Acedemy.Mvc.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseDto courseModel = await _courseApiService.GetById("http://academy.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
+            CourseDto courseModel = await _courseApiService.GetById("http://academyapi.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
             if (courseModel == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace Acedemy.Mvc.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _courseApiService.Add(courseModel, "http://academy.emresimsek.info/api/Course/", Session["access_token"] as String);
+                await _courseApiService.Add(courseModel, "http://academyapi.emresimsek.info/api/Course/", Session["access_token"] as String);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +68,7 @@ namespace Acedemy.Mvc.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseDto courseModel = await _courseApiService.GetById("http://academy.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
+            CourseDto courseModel = await _courseApiService.GetById("http://academyapi.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
             if (courseModel == null)
             {
                 return HttpNotFound();
@@ -84,7 +84,7 @@ namespace Acedemy.Mvc.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                CourseDto coursemodel = await _courseApiService.UpdateCourseAsync(courseModel, "http://academy.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
+                CourseDto coursemodel = await _courseApiService.UpdateCourseAsync(courseModel, "http://academyapi.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
                 return View(coursemodel);
             }
             return View(courseModel);
@@ -95,12 +95,12 @@ namespace Acedemy.Mvc.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseDto courseDto = await _courseApiService.GetById("http://academy.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
+            CourseDto courseDto = await _courseApiService.GetById("http://academyapi.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
             if (courseDto == null)
             {
                 return HttpNotFound();
             }
-            await _courseApiService.DeleteCourseAsync("http://academy.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
+            await _courseApiService.DeleteCourseAsync("http://academyapi.emresimsek.info/api/Course/" + id, Session["access_token"] as String);
             return RedirectToAction("Index");
         }
     }

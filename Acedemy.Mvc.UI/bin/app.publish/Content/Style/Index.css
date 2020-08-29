@@ -1,0 +1,122 @@
+﻿/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+    /* Style the sidenav links and the dropdown button */
+    .sidenav a, .dropdown-btn {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+        /* On mouse-over */
+        .sidenav a:hover, .dropdown-btn:hover {
+            color: #f1f1f1;
+
+        }
+        .sidenav .signout:hover, .dropdown-btn:hover {
+            color:red;
+        }
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding-left:10px;
+    padding-right:10px;
+    float:right;
+    width:85%;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color: green;
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.sidenav .fa-icon {
+    float: right;
+    padding-right: 8px;
+    padding-top: 8px;
+}
+.hiddencourse {
+    display: none;
+}
+.deneme2 {
+    display: none;
+}
+#course
+{
+    display:none;
+}
+html
+{
+    overflow-x:hidden;
+}
+.addcourse
+{
+    padding:10px;
+    float:right;
+    top:0;
+    margin:5px;
+  
+}
+.back {
+    margin-bottom:5px;
+    float:right;
+}
+p{
+    display:inline-block;
+    margin-top:5px;
+}
+.mainpage{
+    text-align:center;
+    margin-top:25%;
+}
+.addcourse i
+{
+    margin:3px;
+}
+h2 i{
+    margin:3px;
+}
+.picker {
+   padding-top: 2px;
+   padding-bottom:5px;
+}
+.signout{
+    position:absolute;
+   bottom:10px;
+}
+.signout:hover {
+}
+
+
+
+

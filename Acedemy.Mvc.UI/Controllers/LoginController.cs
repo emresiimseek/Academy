@@ -43,7 +43,7 @@ namespace Acedemy.Mvc.UI.Controllers
             if (ModelState.IsValid)
             {
 
-                TokenContent rest = await _loginApiService.Authenticate("http://academy.emresimsek.info/token", loginUserModel);
+                TokenContent rest = await _loginApiService.Authenticate("http://academyapi.emresimsek.info/token", loginUserModel);
                 if (rest.access_token != null)
                 {
                     FormsAuthentication.SetAuthCookie(loginUserModel.Username, false);
@@ -74,7 +74,7 @@ namespace Acedemy.Mvc.UI.Controllers
         public async Task<ActionResult> Register(RegisterUserModel registerUserModel)
         {
 
-            await _userApiService.Add(_autoMapperBase.MapToSameType<RegisterUserModel, InstructorDto>(registerUserModel), "http://academy.emresimsek.info/api/User");
+            await _userApiService.Add(_autoMapperBase.MapToSameType<RegisterUserModel, InstructorDto>(registerUserModel), "http://academyapi.emresimsek.info/api/User");
             return View();
         }
 
