@@ -65,21 +65,5 @@ namespace Acedemy.API.Controllers
             BusinessLayerResult<Attendance> result  = _attendanceService.SaveAttendance(attendance);
             return result.Error;
         }
-
-
-        // PUT: api/Attendance/5
-        [HttpPut]
-        [Route("api/Attendance/{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-
-        }
-        // GET: api/Attendance/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-
     }
 }

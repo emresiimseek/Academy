@@ -1,6 +1,7 @@
 ﻿using Academy.EntityFramework.Concrete;
 using Acedemy.Business.Abstract;
 using Acedemy.Business.Concrete;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace Acedemy.API.Models
                 }
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+
                 context.Validated(identity);
             }
 

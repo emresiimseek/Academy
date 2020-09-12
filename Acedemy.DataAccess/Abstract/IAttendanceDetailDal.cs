@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Acedemy.DataAccess.Abstract
 {
-    public interface IAttendanceDetailDal:IRepository<AttendanceDetail>
+    public interface IAttendanceDetailDal : IRepository<AttendanceDetail>
     {
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Academy.EntityFramework.Concrete;
 using Acedemy.API.Models.Dto;
+using Acedemy.Business;
+using Acedemy.Mvc.UI.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,7 @@ namespace Acedemy.Mvc.UI.ApiService
         {
             _httpClient = httpClient;
         }
-        public async Task<List<CourseDto>> GetAllAsync(string path,string accessToken)
+        public async Task<List<CourseDto>> GetAllAsync(string path, string accessToken)
         {
 
             List<CourseDto> courseModels = null;
@@ -30,13 +32,13 @@ namespace Acedemy.Mvc.UI.ApiService
             HttpResponseMessage response = await _httpClient.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                courseModels =  JsonConvert.DeserializeObject<List<CourseDto>>(await response.Content.ReadAsStringAsync());
+                courseModels = JsonConvert.DeserializeObject<List<CourseDto>>(await response.Content.ReadAsStringAsync());
             }
             else
             {
                 courseModels = null;
             }
-            return  courseModels;
+            return courseModels;
         }
 
         public async Task<CourseDto> GetById(string path, string accessToken)
@@ -56,7 +58,7 @@ namespace Acedemy.Mvc.UI.ApiService
             return courseModel;
         }
 
-        public async Task Add(CourseDto courseModel, string path,string accessToken)
+        public async Task Add(CourseDto courseModel, string path, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(
@@ -98,17 +100,45 @@ namespace Acedemy.Mvc.UI.ApiService
 
         public async Task<HttpStatusCode> DeleteCourseAsync(string path, string accessToken)
         {
-            //_httpClient.DeleteAsync(new HttpRequestMessage()
-            //{
-            //    RequestUri = new Uri(path),
-            //    Method = HttpMethod.Post,
-            //    Content = new StringContent("Deelete"),
-            //    Headers = new HttpRequestHeaders() { new AuthenticationHeaderValue("Bearer", accessToken) }
-            //});
-
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             HttpResponseMessage response = await _httpClient.DeleteAsync(path);
             return response.StatusCode;
+        }
+        public async Task<BusinessLayerResult<AssignModel>> AssignStudent(string path, string accessToken, AssignModel assignModel)
+        {
+            BusinessLayerResult<AssignModel> result = new BusinessLayerResult<AssignModel>();
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            var stringContent = new StringContent(JsonConvert.SerializeObject(assignModel), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(path, stringContent);
+            if (response.IsSuccessStatusCode)
+            {
+
+                result = await response.Content.ReadAsAsync<BusinessLayerResult<AssignModel>>();
+                return result;
+            }
+            else
+            {
+                return result;
+            }
+
+        }
+        public async Task<BusinessLayerResult<AssignModel>> AssignInstructor(string path, string accessToken, AssignModel assignModel)
+        {
+            BusinessLayerResult<AssignModel> result = new BusinessLayerResult<AssignModel>();
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            var stringContent = new StringContent(JsonConvert.SerializeObject(assignModel), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(path, stringContent);
+            if (response.IsSuccessStatusCode)
+            {
+
+                result = await response.Content.ReadAsAsync<BusinessLayerResult<AssignModel>>();
+                return result;
+            }
+            else
+            {
+                return result;
+            }
+
         }
     }
 }

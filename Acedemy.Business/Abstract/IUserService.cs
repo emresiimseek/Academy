@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Acedemy.Business.Abstract
 {
-    public interface IUserService:IRepository<Instructor>
+    public interface IUserService : IRepository<Instructor>
     {
         void AddUser(Instructor ınstructor);
+        List<Instructor> GetAllWithChilds();
+        Instructor GetByUsernamePassword(Instructor ınstructor);
     }
 }

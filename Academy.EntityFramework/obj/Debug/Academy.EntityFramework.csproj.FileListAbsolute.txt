@@ -7,4 +7,3 @@ C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.Ent
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.csproj.CopyComplete
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.dll
 C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.pdb
-C:\Users\Emre\source\repos\Academy\Academy.EntityFramework\obj\Debug\Academy.EntityFramework.csprojAssemblyReference.cache

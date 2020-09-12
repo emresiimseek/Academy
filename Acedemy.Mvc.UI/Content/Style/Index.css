@@ -29,21 +29,21 @@
 
         /* On mouse-over */
         .sidenav a:hover, .dropdown-btn:hover {
-            color: #f1f1f1;
-
+            color: cadetblue;
         }
+
         .sidenav .signout:hover, .dropdown-btn:hover {
-            color:red;
+            color: red;
         }
 
 /* Main content */
 .main {
     margin-left: 200px; /* Same as the width of the sidenav */
     font-size: 20px; /* Increased text to enable scrolling */
-    padding-left:10px;
-    padding-right:10px;
-    float:right;
-    width:85%;
+    padding-left: 10px;
+    padding-right: 10px;
+    float: right;
+    width: 86%;
 }
 
 /* Add an active class to the active dropdown button */
@@ -63,60 +63,129 @@
 .sidenav .fa-icon {
     float: right;
     padding-right: 8px;
-    padding-top: 8px;
+    padding-top: 5px;
 }
+
+.sidenav i:first-child {
+    padding-right: 8px;
+    padding-top: 5px;
+}
+
 .hiddencourse {
     display: none;
 }
+
 .deneme2 {
     display: none;
 }
-#course
-{
-    display:none;
+
+#course {
+    display: none;
 }
-html
-{
-    overflow-x:hidden;
+
+html {
+    overflow-x: hidden;
 }
-.addcourse
-{
-    padding:10px;
-    float:right;
-    top:0;
-    margin:5px;
-  
+
+.addcourse {
+    padding: 10px;
+    float: right;
+    top: 0;
+    margin: 5px;
 }
+
 .back {
-    margin-bottom:5px;
-    float:right;
+    margin-bottom: 5px;
+    float: right;
 }
-p{
-    display:inline-block;
-    margin-top:5px;
+
+p {
+    display: inline-block;
+    margin-top: 5px;
 }
-.mainpage{
-    text-align:center;
-    margin-top:25%;
+
+.mainpage {
+    text-align: center;
+    margin-top: 25%;
 }
-.addcourse i
-{
-    margin:3px;
+
+.addcourse i {
+    margin: 3px;
 }
-h2 i{
-    margin:3px;
+
+h2 i {
+    margin: 3px;
 }
+
 .picker {
-   padding-top: 2px;
-   padding-bottom:5px;
-}
-.signout{
-    position:absolute;
-   bottom:10px;
-}
-.signout:hover {
+    padding-top: 2px;
+    padding-bottom: 5px;
 }
 
+.signout {
+    position: absolute;
+    bottom: 10px;
+}
 
+    .signout:hover {
+    }
+
+.mar {
+    margin-bottom: 6px;
+}
+
+.mar-label {
+    margin-bottom: 10px;
+}
+
+.circular--portrait {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-left: 20px;
+    margin-bottom: 35px;
+}
+
+    .circular--portrait img {
+        width: 100%;
+        height: auto;
+    }
+
+@media(max-width:768px) {
+    .main {
+        width: 450px;
+        float: none;
+        margin-left:70px;
+    }
+    .sidenav {
+        width: 50px;
+    }
+    .sidenav a{
+        visibility:hidden;
+
+    }
+        .sidenav a i {
+            visibility: visible;
+            float: none;
+          
+        }
+        .sidenav a i:first-child{
+            visibility: visible;
+            float: none;
+            margin-left: 3px;
+        }
+
+    #hider {
+        display:none;
+    }
+    #viewer {
+        display: none;
+    }
+    .addcourse{
+        float:none;
+    }
+}
 
 

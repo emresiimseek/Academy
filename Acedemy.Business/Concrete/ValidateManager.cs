@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Acedemy.Business.Concrete
 {
-    public class ValidateManager : IDisposable
+    public class ValidateManager : IDisposable,IValidateService
     {
         static string key { get; set; } = "A!9HHhi%XjjYY4YP2@Nob009X";
 

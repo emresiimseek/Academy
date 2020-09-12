@@ -10,7 +10,7 @@
         <p>Lütfen görüntülemek istediğiniz tarihi seçerek ilgili kurs'un detay görüntüleme düğmesine tıklayınız.</p>
         <div class="col">
             <i class="fa fa-calendar" aria-hidden="true"></i>
-            <input  type="datetime" data-date-format="dd/mm/yyyy" id="datepicker">
+            <input class="reportdate" type="datetime" data-date-format="dd/mm/yyyy" id="datepicker">
         </div>
     </div>
     <div class="row ">
@@ -35,13 +35,23 @@
 
                         <td>  @Html.DisplayFor(modelItem => course.Title)</td>
 
-
-                        @foreach (Academy.EntityFramework.Concrete.Instructor instructorModel in course.Instructors)
+                        @if (course.Instructors.Count == 0)
                         {
-
-                            <td>@instructorModel.FirstName @instructorModel.LastName</td>
+                            <td style="background-color:red;">Eğitmen Atanmamış.</td>
+                        }
+                        else
+                        {
+                            <td>
+                                @{
+                                    foreach (Academy.EntityFramework.Concrete.Instructor ınstructor in course.Instructors)
+                                    {
+                                        <p><i class="fa fa-user" aria-hidden="true"></i> @ınstructor.FirstName @ınstructor.LastName </p>
+                                    }
+                                }
+                            </td>
 
                         }
+
                         <td style="text-align:center;">
 
                             @*<div class="btn btn-warning">
@@ -98,21 +108,25 @@
 
     $('#datepicker').datepicker("setDate", new Date());
 
-    function getReport(CourseId) {
-        var model = new Object();
-        model.CourseId = CourseId;
-        model.ReportDateAsString = $("#datepicker").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
-        $.ajax({
-            url: '/Attendances/AttendanceReport',
-            type: 'POST',
-            datatype: 'json',
-            async: true,
-            data: { reportDto: model },
-            success: function (e) {
-                $(".mainarea").replaceWith(e);
 
-            }
-        });
+    function getReport(CourseId) {
+       
+            var model = new Object();
+            model.CourseId = CourseId;
+            model.ReportDateAsString = $("#datepicker").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
+            $.ajax({
+                url: '/Attendances/AttendanceReport',
+                type: 'POST',
+                datatype: 'json',
+                async: true,
+                data: { reportDto: model },
+                success: function (e) {
+                    $(".mainarea").replaceWith(e);
+
+                }
+            });
+        
+
     }
     function showChartGraphic(CourseId) {
 
@@ -127,7 +141,7 @@
             data: { reportDto: model },
             success: function (e) {
                 $("#forModal").html(e);
-               
+
             }
         }).done(function () {
             $('#chartModal').modal('show');

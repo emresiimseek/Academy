@@ -1,0 +1,78 @@
+﻿@model List<StudentDto>
+
+
+
+@*@foreach (StudentDto student in Model)
+{
+    <tr class="@student.Id" onclick="AddedorNotPeople('@student.Id')">
+        <td> @Html.DisplayFor(modelItem => student.Id)  <input type="text" class="hiddencourse" name="name" value="@student.Id" /></td>
+
+        <td>  @Html.DisplayFor(modelItem => student.FirstName)</td>
+        <td> @Html.DisplayFor(modelItem => student.LastName)</td>
+
+
+        @if (student.Courses.Count == 0)
+        {
+            <td style="background-color:red;">Ders Atanmamış.</td>
+        }
+        else
+        {
+            <td>
+                @{
+                    foreach (Course course in student.Courses)
+                    {
+                        <p>@course.Title<i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></p>
+
+                    }
+                }
+            </td>
+
+        }
+        <td>
+            <label>
+                <input id="test" class="@student.Id" type="checkbox" />
+            </label>
+        </td>
+    </tr>
+}*@
+
+
+    @foreach (StudentDto student in Model)
+    {
+        <tr class="customtr clickable-row" onclick="clickablerow('@student.Id')">
+            <td> @Html.DisplayFor(modelItem => student.Id)  <input type="text" class="hiddencourse" name="name" value="@student.Id" /></td>
+
+            <td>  @Html.DisplayFor(modelItem => student.FirstName)</td>
+            <td> @Html.DisplayFor(modelItem => student.LastName)</td>
+
+
+            @if (student.Courses.Count == 0)
+            {
+                <td style="background-color:red;">Henüz Ders Atanmamıştır.</td>
+            }
+            else
+            {
+                <td>
+                    @{
+                        foreach (Course course in student.Courses)
+                        {
+                            <p>@course.Title <i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></p>
+
+                        }
+                    }
+                </td>
+            }
+
+
+            <td> @Html.DisplayFor(modelItem => student.CreatedOn)</td>
+            <td>  @Html.DisplayFor(modelItem => student.ModifiedOn)</td>
+            <td style="text-align:center;">
+                <a class="btn btn-warning" style="margin:2px;" href="/Student/EditStudent?id=@student.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a class="btn btn-danger" onclick="DeleteStudent('@student.Id')"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </td>
+
+        </tr>
+    }
+
+
+

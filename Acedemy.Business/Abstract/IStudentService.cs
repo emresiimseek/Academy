@@ -9,6 +9,9 @@ namespace Acedemy.Business.Abstract
 {
     public interface IStudentService:IService<Student>
     {
+        List<Student> GetStudentWithCourses();
+        List<Student> FindByName(string key);
+
     }
 
 }

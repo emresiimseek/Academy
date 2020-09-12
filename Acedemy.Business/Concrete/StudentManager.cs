@@ -40,5 +40,15 @@ namespace Acedemy.Business.Concrete
         {
             _studentDal.Delete(student);
         }
+
+        public List<Student> GetStudentWithCourses()
+        {
+           return _studentDal.GetAllWithCourse();
+        }
+
+        public List<Student> FindByName(string key)
+        {
+            return _studentDal.FindByName(key);
+        }
     }
 }

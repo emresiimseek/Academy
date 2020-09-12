@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Concrete\AttendanceDetail.cs" />
     <Compile Include="Concrete\ComplexTypes\AttendanceReport.cs" />
+    <Compile Include="Concrete\DTOs\AssignDto.cs" />
     <Compile Include="Concrete\DTOs\AttendanceDetailModelDto.cs" />
     <Compile Include="Concrete\DTOs\AttendanceModelDto.cs" />
     <Compile Include="Concrete\Category.cs" />
@@ -59,8 +60,8 @@
     <Compile Include="Concrete\Entity.cs" />
     <Compile Include="Concrete\Attendance.cs" />
     <Compile Include="Concrete\Instructor.cs" />
-    <Compile Include="Concrete\InstructorCourses.cs" />
     <Compile Include="Concrete\Person.cs" />
+    <Compile Include="Concrete\Role.cs" />
     <Compile Include="Concrete\Student.cs" />
     <Compile Include="Errors\ErrorModel.cs" />
     <Compile Include="Messages\MessagesCodes.cs" />

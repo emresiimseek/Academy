@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Acedemy.DataAccess
 {
-    public class MyInitilazer : DropCreateDatabaseAlways<AcedemyContext>
+    public class MyInitilazer : CreateDatabaseIfNotExists<AcedemyContext>
     {
         protected override void Seed(AcedemyContext context)
         {

@@ -52,6 +52,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -82,6 +83,10 @@
   <ItemGroup>
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\RepositoryBase.cs" />
+    <Compile Include="CrossCuttingConcerns\Securtiy\Identity.cs" />
+    <Compile Include="CrossCuttingConcerns\Securtiy\Web\AuthenticationHelper.cs" />
+    <Compile Include="CrossCuttingConcerns\Securtiy\Web\SecurityUtillities.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Mappings\AutoMapperHelper.cs" />
     <Compile Include="Utilities\Mappings\IAutoMapperBase.cs" />
@@ -97,6 +102,7 @@
       <Name>Academy.EntityFramework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

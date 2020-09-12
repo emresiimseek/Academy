@@ -36,11 +36,23 @@
                     <td>@course.Title</td>
                     <td>@course.Description</td>
                     <td>@course.TotalTime</td>
-                    @foreach (Academy.EntityFramework.Concrete.Instructor instructorModel in course.Instructors)
+                    @if (course.Instructors.Count == 0)
                     {
-                        <td>@instructorModel.FirstName @instructorModel.LastName</td>
+                        <td style="background-color:red;">Eğitmen atanmamış.</td>
+                    }
+                    else
+                    {
+                        <td>
+                            @{
+                                foreach (Academy.EntityFramework.Concrete.Instructor ınstructor in course.Instructors)
+                                {
+                                    <p><i class="fa fa-user" aria-hidden="true"></i> @ınstructor.FirstName @ınstructor.LastName </p>
+                                }
+                            }
+                        </td>
 
                     }
+
 
                 </tr>
             }
@@ -74,7 +86,7 @@
 
 
         }
-        document.getElementById("isThere").innerHTML = isHere;
+        //document.getElementById("isThere").innerHTML = isHere;
     }
 
     function clickablerow(CourseId) {
@@ -93,38 +105,31 @@
     $(document).on('click', '#save', function () {
 
         //alert(isHere);
-        if (isHere.length == 0) {
-            alert("Lütfen listeden öğrenci seçiniz.")
+
+        var answer = window.confirm("Devam etmeniz durumunda yoklama kaydedilecektir?")
+
+        if (answer == true) {
+
+            var model = new Object();
+            model.CourseId = $(".deneme2").val();
+            model.Students = isHere;
+
+            model.CreatedOn = $("#datepicker").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
+            $.ajax({
+                url: '/Attendances/SaveAttendance',
+                type: 'POST',
+                datatype: 'json',
+                async: true,
+                data: { veri: model },
+                success: function (e) {
+                    var messages = e['messages'];
+                    $.each(messages, function (x, message) {
+                        alert(message);
+                    });
+                }
+            });
         }
-        else {
-            var answer = window.confirm("Devam etmeniz durumunda yoklama kaydedilecektir?")
 
-            if (answer == true) {
-
-                var model = new Object();
-                model.CourseId = $(".deneme2").val();
-                model.Students = isHere;
-
-                model.CreatedOn =  $("#datepicker").datepicker({ dateFormat: 'dd,MM,yyyy' }).val();
-                $.ajax({
-                    url: '/Attendances/SaveAttendance',
-                    type: 'POST',
-                    datatype: 'json',
-                    async: true,
-                    data: { veri: model },
-                    success: function (e) {
-
-                        if (e.Message != "Başarılı!") {
-                            alert(e.Message);
-                        }
-                        else {
-                            alert(e.Message);
-                        }
-
-                    }
-                });
-            }
-        }
 
 
 

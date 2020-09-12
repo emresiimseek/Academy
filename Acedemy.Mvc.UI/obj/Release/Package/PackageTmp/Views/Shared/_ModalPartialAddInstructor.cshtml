@@ -1,0 +1,106 @@
+﻿@model Acedemy.Mvc.UI.Models.ModalPartialStudentModel<InstructorDto>
+
+<div class="modal fade addstudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLongTitle"><p style="font-weight:bold"> @Model.CourseDto.Title Kursuna Eğitmen Ata </p>  <i class="fa fa-plus-circle" aria-hidden="true"></i></h5>
+
+                <input id="search" style="display:inline;" type="text" name="key" value="" class="form-control col-sm-1" placeholder="Ad/Soyad göre ara..." />
+                <button style="margin-top:10px;margin-right:5px;" class="btn btn-primary searchbuttontoinstructor">Ara</button>
+
+
+                <button style="margin-top:10px;" type="button" class="btn btn-success saveinstructortocourse">Kaydet</button>
+
+
+
+                @*<h5 class="modal-title" id="exampleModalLongTitle"><p style="font-weight:bold"> @Model.CourseDto.Title Kursuna Eğitmen Ata </p>  <i class="fa fa-plus-circle" aria-hidden="true"></i></h5>
+
+                <input id="search" type="text" name="key" value="" class="input-group" placeholder="Ad/Soyad göre ara..." />
+                <br />
+                <button type="button" class="btn btn-success saveinstructortocourse">Kaydet</button>
+
+                <button class="btn btn-success searchbutton">Ara</button>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+                </button>*@
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr class="header">
+                            <th>Eğitmen No</th>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
+                            <th>Eğitmenlik Yaptığı Kurslar</th>
+                            <th>Eklendi</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody id="body_table">
+                        @foreach (InstructorDto ınstructor in Model.EntityModal)
+                        {
+                            <tr class="@ınstructor.Id" onclick="AddedorNotPeople('@ınstructor.Id')">
+                                <td> @Html.DisplayFor(modelItem => ınstructor.Id)  <input type="text" class="hiddencourse" name="name" value="@ınstructor.Id" /></td>
+
+                                <td>  @Html.DisplayFor(modelItem => ınstructor.FirstName)</td>
+                                <td> @Html.DisplayFor(modelItem => ınstructor.LastName)</td>
+
+
+                                @if (ınstructor.Courses.Count == 0)
+                                {
+                                    <td style="background-color:red;">Ders Atanmamış.</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @{
+                                            Course lastCourse = ınstructor.Courses.Last();
+                                            foreach (Course course in ınstructor.Courses)
+                                            {
+                                                <p>@course.Title</p>
+                                                if (course.Equals(lastCourse))
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    <p>,</p>
+                                                }
+
+                                            }
+                                        }
+                                    </td>
+
+                                }
+                                <td>
+                                    <label>
+                                        <input id="test" class="@ınstructor.Id" type="checkbox" />
+                                    </label>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>

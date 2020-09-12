@@ -24,7 +24,7 @@ namespace Acedemy.Mvc.UI.ApiServices
         public  async Task<TokenContent> Authenticate(string path, LoginUserModel loginUserModel)
         {
 
-            var client = new RestClient("http://academyapi.emresimsek.info/token");
+            var client = new RestClient(path);
             var request = new RestRequest(Method.POST);
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("content-type", "application/x-www-form-urlencoded");

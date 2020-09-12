@@ -14,6 +14,8 @@ namespace Acedemy.DataAccess.Abstract
 
         List<Course> GetAllCourseWithChild();
         Course GetCourseWithChild(int Id);
+        void AssignStudentToCourse(Course course, List<Student> students);
+        void AssignInstructorToCourse(Course course, List<Instructor> ınstructors);
 
 
     }

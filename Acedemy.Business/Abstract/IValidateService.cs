@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Acedemy.Business.Abstract
 {
-    public interface IValidateService : IService<Instructor>
+    public interface IValidateService 
     {
         Task<Instructor> Authenticate(string username, string password);
         string Encrypt(string text);

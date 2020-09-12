@@ -15,7 +15,7 @@ namespace Acedemy.DataAccess
         public AcedemyContext()
         {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<AcedemyContext, Migrations.Configuration>());
-            //Database.SetInitializer(new MyInitilazer()); //when you initilazer open this row
+            Database.SetInitializer(new MyInitilazer()); //when you initilazer open this row
             this.Configuration.LazyLoadingEnabled = false;
         }
 

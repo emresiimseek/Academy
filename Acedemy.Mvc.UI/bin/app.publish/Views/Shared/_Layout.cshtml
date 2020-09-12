@@ -8,7 +8,7 @@
     <link href="~/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-   
+
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-3.5.1.min.js"></script>
     <link href="~/Content/Style/Custom.css" rel="stylesheet" />
@@ -25,17 +25,22 @@
 <body>
 
     <div class="sidenav">
-
+        <a style="text-transform:uppercase;font-size:small; " id="showprofile">Hoşgeldin  @HttpContext.Current.User.Identity.Name <i class="fa fa-user" aria-hidden="true"></i></a>
+        <br />
         <a href="#">
             <i id="hider" style="float:right; margin-right:5px;color:none;" class="fa fa-arrow-circle-o-left fa-icon" aria-hidden="true"></i>
             <i id="viewer" style="float:right; margin-right:5px;visibility:hidden;" class="fa fa-arrow-circle-o-right fa-icon" aria-hidden="true"></i><br />
         </a>
-        <a href="/Courses/Index">Kurslar<i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></a>
+        <a href="/Course/Index">Kurslar<i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></a>
+        <a href="/Student/Index">Öğrenciler<i class="fa fa-graduation-cap fa-style fa-icon" aria-hidden="true"></i></a>
+        <a href="/Instructor/Index">Eğitmenler<i class="fa fa-users fa-style fa-icon" aria-hidden="true"></i></a>
         <a href="/Attendances/TakeAttendance">Yoklama Al<i class="fa fa-pencil-square-o fa-icon " aria-hidden="true"></i></a>
         <a href="/Attendances/AttendanceReport">Yoklamalar<i class="fa fa-list-alt fa-style fa-icon" aria-hidden="true"></i></a>
         <a href="/Login/SignOut" class="signout">Çıkış<i class="fa fa-sign-out fa-style  fa-icon" aria-hidden="true"></i></a>
         @* <a href="#about">Yorumlar <i class="fa fa-commenting-o fa-style fa-icon " aria-hidden="true"></i></a>*@
     </div>
+    <!-- Modal -->
+    <div class="areaProfile">   </div>
 
     <div class="main">
         @RenderBody()
@@ -53,6 +58,8 @@
     </div>
 
 
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -61,7 +68,71 @@
 
 
     <script>
-       
+
+
+
+
+
+
+
+
+        $(document).on('click', '#showprofile', function () {
+
+            $.ajax({
+                method: "GET",
+                url: "/Instructor/UserProfile",
+                success: function (r) {
+                    $('.areaProfile').html(r);
+                }
+            }).done(function () {
+                $('#profile').modal('show')
+            })
+
+
+
+        });
+
+
+        $(document).on('click', '#save', function () {
+
+            var div = document.createElement("DIV");
+            div.setAttribute("id", "val");
+            $("#val").replaceWith(div);
+            var User = new Object();
+            User.FirstName = $('#fn').val();
+            User.LastName = $('#ln').val();
+            User.UserName = $('#un').val();
+            User.Password = $('#ps').val();
+            User.Id = $('#id').val();
+            $.ajax({
+                method: "POST",
+                contentType: "application/json",
+                url: "/Instructor/EditProfile",
+                data: JSON.stringify(User),
+                success: function (r) {
+                    if (r['success'] == false) {
+                        var errors = r['errors'];
+                        displayValidationErrors(errors)
+                    }
+                    if (r == true) {
+                        alert("Başarılı!");
+                    }
+
+
+                }
+            }).done(function () {
+                $('#profile').modal('show')
+            })
+
+
+
+        });
+
+        function displayValidationErrors(errors) {
+            $.each(errors, function (idx, errorMessage) {
+                $("#val").append('<p id="val" style="color:red;">' + errorMessage + '</p></br>');
+            });
+        }
 
 
 
@@ -79,7 +150,11 @@
             $("#hider").css('visibility', 'hidden');
             $(".dropdown-btn").css('visibility', 'hidden');
             $(".dropdown-btn  i").css('visibility', 'visible');
+            $(".sidenav a i").first().css('font-size', 'Large');
+            $(".sidenav a i").first().css('margin-left', '3px');
             $(".main").css("width", "95%");
+          
+
 
         })
         $("#viewer").click(function () {
@@ -88,13 +163,18 @@
             $(".sidenav a ").css('visibility', 'visible');
             $(".sidenav a i").css('visibility', 'visible');
             $(".sidenav a i").css('float', 'right');
+            $(".sidenav a i").first().css('float', 'none');
+
             $(".dropdown-btn  i").css('float', 'right');
             $("#hider").css('float', 'right');
             $("#viewer").css('float', 'right');
             $("#viewer").css('visibility', 'hidden');
             $("#hider").css('visibility', 'visible');
             $(".dropdown-btn").css('visibility', 'visible');
-            $(".main").css("width", "85%");
+            $(".sidenav a i").first().css('margin-left', '0px');
+            $(".sidenav a i").first().css('font-size', 'small');
+            $(".main").css("width", "85%");  
+         
 
 
         });

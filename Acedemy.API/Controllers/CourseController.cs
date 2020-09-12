@@ -1,6 +1,8 @@
 ﻿using Academy.EntityFramework.Concrete;
+using Academy.EntityFramework.Concrete.DTOs;
 using Acedemy.API.Filters;
 using Acedemy.API.Models.Dto;
+using Acedemy.Business;
 using Acedemy.Business.Abstract;
 using Acedemy.DataAccess;
 using Acedemy.DataAccess.Concrete;
@@ -27,11 +29,11 @@ namespace Acedemy.API.Controllers
             _courseService = courseService;
             _autoMapperBase = autoMapperBase;
         }
-        // GET: api/Test
+        // GET: api/Course
         [HttpGet]
         public List<CourseDto> GetAll()
         {
-         
+
             List<Course> courses = _courseService.GetAllCourseWithChild();
             List<CourseDto> courseModels = _autoMapperBase.MapToSameList<Course, CourseDto>(courses);
             return courseModels;
@@ -45,7 +47,7 @@ namespace Acedemy.API.Controllers
             return courseModels;
         }
 
-        // GET: api/Test/5
+        // GET: api/Course/5
         [HttpGet]
         [Route("api/Course/{id}")]
         public CourseDto Get(int id)
@@ -65,15 +67,16 @@ namespace Acedemy.API.Controllers
             return _autoMapperBase.MapToSameType<Course, CourseDto>(course);
         }
 
-        // POST: api/Test
+        // POST: api/Course
         [HttpPost]
         public void Post([FromBody] CourseDto courseModel)
         {
 
+
             _courseService.Add(_autoMapperBase.MapToSameType<CourseDto, Course>(courseModel));
         }
 
-        // PUT: api/Test/5
+        // PUT: api/Course/5
         [HttpPut]
         [Route("api/Course/{id}")]
         public CourseDto Put(int id, [FromBody] CourseDto courseModel)
@@ -95,7 +98,7 @@ namespace Acedemy.API.Controllers
             return courseModel;
         }
 
-        // DELETE: api/Test/5
+        // DELETE: api/Course/5
         [HttpDelete]
         [Route("api/Course/{id}")]
         public void Delete(int id)
@@ -113,5 +116,28 @@ namespace Acedemy.API.Controllers
             }
             _courseService.Delete(course);
         }
+        [HttpPost]
+        [Route("api/Course/AssignStudent")]
+        public BusinessLayerResult<AssignDto> AssignStudentToCourse([FromBody] AssignDto assignDto)
+        {
+            return _courseService.AssignStudentToCourse(assignDto);
+        }
+        [HttpPost]
+        [Route("api/Course/AssignInstructor")]
+        public BusinessLayerResult<AssignDto> AssignInstructorToCourse([FromBody] AssignDto assignDto)
+        {
+            return _courseService.AssignInstructorToCourse(assignDto);
+        }
+
+        [Route("api/Course/values")]
+        public IHttpActionResult GetValues()
+        {
+            ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
+
+            var claims = claimsIdentity.Claims.Select(x => new { type = x.Type, value = x.Value });
+
+            return Ok(claims);
+        }
+
     }
 }

@@ -26,7 +26,9 @@ namespace Acedemy.API.App_Start
                 //Setting the Token Expired Time (24 hours)
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 //MyAuthorizationServerProvider class will validate the user credentials
-                Provider = new MyAuthorizationServerProvider()
+                Provider = new MyAuthorizationServerProvider(),
+                AuthenticationMode=Microsoft.Owin.Security.AuthenticationMode.Active
+
             };
             //Token Generations
             app.UseOAuthAuthorizationServer(options);

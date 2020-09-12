@@ -10,7 +10,7 @@ namespace Academy.EntityFramework.Concrete
 {
     public class AttendanceDetail : Entity
     {
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity),]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AttendanceDetailId { get; set; }
         [Key, Column(Order = 1)]
         public int AttendanceId { get; set; }

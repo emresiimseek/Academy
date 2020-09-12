@@ -1,0 +1,86 @@
+﻿@model Acedemy.Mvc.UI.Models.ModalPartialStudentModel<StudentDto>
+
+<div class="modal fade addstudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+           
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLongTitle"><p style="font-weight:bold"> @Model.CourseDto.Title Kursuna Öğrenci Ata </p>  <i class="fa fa-plus-circle" aria-hidden="true"></i></h5>
+
+                <input id="search" style="display:inline;" type="text" name="key" value="" class="form-control col-sm-1" placeholder="Ad/Soyad göre ara..." />
+                <button style="margin-top:10px;margin-right:5px;" class="btn btn-primary searchbuttontostudent">Ara</button>
+
+
+                <button style="margin-top:10px;" type="button" class="btn btn-success savestudenttocourse">Kaydet</button>
+
+
+
+
+
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr class="header">
+                            <th>Öğrenci No</th>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
+                            <th>Kayıtlı Olduğu Kurslar</th>
+                            <th>Eklendi</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody id="body_table">
+                        @foreach (StudentDto student in Model.EntityModal)
+                        {
+                            <tr class="@student.Id" onclick="AddedorNotPeople('@student.Id')">
+                                <td> @Html.DisplayFor(modelItem => student.Id)  <input type="text" class="hiddencourse" name="name" value="@student.Id" /></td>
+
+                                <td>  @Html.DisplayFor(modelItem => student.FirstName)</td>
+                                <td> @Html.DisplayFor(modelItem => student.LastName)</td>
+
+
+                                @if (student.Courses.Count == 0)
+                                {
+                                    <td style="background-color:red;">Ders Atanmamış.</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @{
+                                            foreach (Course course in student.Courses)
+                                            {
+                                                <p>@course.Title<i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></p>
+
+                                            }
+                                        }
+                                    </td>
+
+                                }
+                                <td>
+                                    <label>
+                                        <input id="test" class="@student.Id" type="checkbox" />
+                                    </label>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>

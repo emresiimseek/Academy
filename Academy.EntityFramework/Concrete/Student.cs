@@ -11,6 +11,10 @@ namespace Academy.EntityFramework.Concrete
     [Table("Students")]
     public class Student : Person
     {
+        public Student()
+        {
+            Courses = new List<Course>();
+        }
         [Required]
         public DateTime EnrollmentDate { get; set; }
         public int Absence { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Academy.EntityFramework.Concrete;
+using Acedemy.API.Filters;
 using Acedemy.API.Models.Dto;
 using Acedemy.Business.Abstract;
 using FrameworkCore.Utilities.Mappings;
@@ -12,6 +13,7 @@ using System.Web.Http;
 namespace Acedemy.API.Controllers
 {
     [Authorize]
+    [ValidationFilter]
     public class StudentController : ApiController
     {
         private IStudentService _studentService { get; set; }
@@ -21,53 +23,88 @@ namespace Acedemy.API.Controllers
             _studentService = studentService;
             _autoMapperBase = autoMapperBase;
         }
-        // GET: api/Test
+        // GET: api/Student
         public List<StudentDto> GetAll()
         {
-            List<Student> students = _studentService.GetAll();
+            List<Student> students = _studentService.GetStudentWithCourses();
             List<StudentDto> studentModels = _autoMapperBase.MapToSameList<Student, StudentDto>(students);
             return studentModels;
         }
 
-        // GET: api/Test/5
-        public StudentDto Get(int id)
-        {
-            Student student = _studentService.Get(id);
-            return _autoMapperBase.MapToSameType<Student, StudentDto>(student);
-        }
-        
 
-        // POST: api/Test
-        public void Post([System.Web.Http.FromBody] StudentDto studentModel)
+        // POST: api/Student
+        [HttpPost]
+        public void Post([FromBody] StudentDto studentModel)
         {
-
             _studentService.Add(_autoMapperBase.MapToSameType<StudentDto, Student>(studentModel));
         }
 
-        // PUT: api/Test/5
-        public StudentDto Put(int id, [System.Web.Http.FromBody]StudentDto studentModel)
+        [HttpPut]
+        [Route("api/Student/{id}")]
+        public void Put(int id, [FromBody] StudentDto studentDto)
         {
             Student student = _studentService.Get(id);
             if (student == null)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
-                    Content = new StringContent(string.Format($"{0} id'li kurs bulunamadı.", id)),
-                    ReasonPhrase = "Course Not Found"
+                    Content = new StringContent(string.Format($"{0} id'li öğrenci bulunamadı.", id)),
+                    ReasonPhrase = "Instructor Not Found",
+                    StatusCode = HttpStatusCode.NotFound
                 };
                 throw new HttpResponseException(response);
             }
-            studentModel.ModifiedOn = DateTime.Now;
-            studentModel.CreatedOn = student.CreatedOn;
-            _studentService.Update(_autoMapperBase.MapToSameType<StudentDto, Student>(studentModel));
-            return studentModel;
+
+            _studentService.Update(_autoMapperBase.MapToSameType<StudentDto, Student>(studentDto));
         }
 
-        // DELETE: api/Test/5
+
+        [HttpPost]
+        [Route("api/Student/Find")]
+        public List<StudentDto> FindByName([FromBody] string key)
+        {
+            return _autoMapperBase.MapToSameList<Student, StudentDto>(_studentService.FindByName(key));
+        }
+
+        [HttpDelete]
+        [Route("api/Student/{id}")]
         public void Delete(int id)
         {
-            Student student = _studentService.Get(id);
-            _studentService.Delete(student);
+            Student course = _studentService.Get(id);
+            if (course == null)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format($"{0} id'li öğrenci bulunamadı.", id)),
+                    ReasonPhrase = "Course Not Found",
+                    StatusCode = HttpStatusCode.NotFound
+                };
+                throw new HttpResponseException(response);
+            }
+            _studentService.Delete(course);
         }
+
+        // GET: api/Student/5
+        [HttpGet()]
+        [Route("api/Student/{id}")]
+        public StudentDto Get(int id)
+        {
+            Student student = _studentService.Get(id);
+            if (student == null)
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format($"{0} id'li öğrenci bulunamadı.", id)),
+                    ReasonPhrase = "Course Not Found",
+                    StatusCode = HttpStatusCode.NotFound
+                };
+                throw new HttpResponseException(response);
+            }
+
+            StudentDto dto = _autoMapperBase.MapToSameType<Student, StudentDto>(student);
+            return dto;
+
+        }
+
     }
 }

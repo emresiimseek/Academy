@@ -1,4 +1,5 @@
 ﻿using Academy.EntityFramework.Concrete;
+using Acedemy.API.Filters;
 using Acedemy.API.Models.Dto;
 using Acedemy.Business.Abstract;
 using FrameworkCore.Utilities.Mappings;
@@ -11,6 +12,8 @@ using System.Web.Http;
 
 namespace Acedemy.API.Controllers
 {
+    [Authorize]
+    [ValidationFilter]
     public class UserController : ApiController
     {
         private IUserService _userService { get; set; }
@@ -28,6 +31,13 @@ namespace Acedemy.API.Controllers
         {
             _userService.Add(_autoMapperBase.MapToSameType<InstructorDto, Instructor>(ınstructorDto));
         }
+        [HttpPost]
+        [Route("api/User/")]
+        public InstructorDto Get([FromBody] UserDto userDto)
+        {
+            return _autoMapperBase.MapToSameType<Instructor, InstructorDto>(_userService.GetByUsernamePassword(_autoMapperBase.MapToSameType<UserDto, Instructor>(userDto)));
+        }
+
 
 
     }

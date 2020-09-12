@@ -8,11 +8,11 @@
     chart.AddLegend("Durum");
 
     chart.AddSeries(name: "Katılımcılar", chartType: "Column",
-        xValue: new[] { 20 },
+        xValue: new[] { 0 },
 yValues: new[] { Model.totalParticipant }
         );
     chart.AddSeries(name: "Toplam Öğrenci", chartType: "Column",
-       xValue: new[] { 20 },
+       xValue: new[] { 0 },
        yValues: new[] { Model.totalSudent }
        );
     chart.SaveToCache("chart");

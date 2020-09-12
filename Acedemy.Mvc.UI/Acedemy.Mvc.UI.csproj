@@ -138,21 +138,26 @@
   <ItemGroup>
     <Compile Include="ApiServices\AttendanceApiService.cs" />
     <Compile Include="ApiServices\CourseApiService.cs" />
+    <Compile Include="ApiServices\InstructorApiService.cs" />
     <Compile Include="ApiServices\LoginApiService.cs" />
     <Compile Include="ApiServices\StudentApiService.cs" />
     <Compile Include="ApiServices\UserApiService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssignModel.cs" />
     <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
+    <Compile Include="Models\ModalPartialStudentModel.cs" />
     <Compile Include="Models\RegisterUserModel.cs" />
     <Compile Include="Models\TokenContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -247,9 +252,9 @@
     <Content Include="Views\Attendances\TakeAttendance.cshtml" />
     <Content Include="Views\Shared\_CourseStudentsPartial.cshtml" />
     <Content Include="Views\Attendances\AddCourse.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
     <Content Include="Views\Attendances\AttendanceReport.cshtml" />
     <Content Include="Views\Shared\_ShowReportPartial.cshtml" />
     <Content Include="Views\Attendances\AddStudentToAttendance.cshtml" />
@@ -258,9 +263,22 @@
     <Content Include="Views\Shared\_ModelPartial.cshtml" />
     <Content Include="Views\Login\LoginPage.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchStudenPartial.cshtml" />
+    <Content Include="Views\Student\Create.cshtml" />
+    <Content Include="Views\Shared\_ModalPartialAddStudent.cshtml" />
+    <Content Include="Views\Shared\_SearchPartialForAssign.cshtml" />
+    <Content Include="Views\Shared\_ModalPartialAddInstructor.cshtml" />
+    <Content Include="Views\Shared\_SearchInstructorPartial.cshtml" />
+    <Content Include="Views\Shared\_ProfilePartial.cshtml" />
+    <Content Include="Views\Instructor\Index.cshtml" />
+    <Content Include="Views\Instructor\Create.cshtml" />
+    <Content Include="Views\Instructor\EditInstructor.cshtml" />
+    <Content Include="Views\Student\EditStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

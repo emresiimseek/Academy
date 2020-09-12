@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IAttendanceService.cs" />
     <Compile Include="Abstract\ICourseService.cs" />
+    <Compile Include="Abstract\IInstructorService.cs" />
     <Compile Include="Abstract\IUserService.cs" />
     <Compile Include="Abstract\IValidateService.cs" />
     <Compile Include="Abstract\IService.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="BusinessLayerResult.cs" />
     <Compile Include="Concrete\AttendanceManager.cs" />
     <Compile Include="Concrete\CourseManager.cs" />
+    <Compile Include="Concrete\InstructorManager.cs" />
     <Compile Include="Concrete\UserManager.cs" />
     <Compile Include="Concrete\ValidateManager.cs" />
     <Compile Include="Concrete\StudentManager.cs" />

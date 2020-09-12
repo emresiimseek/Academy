@@ -10,6 +10,7 @@ namespace Acedemy.DataAccess.Abstract
 {
     public  interface IStudentDal:IRepository<Student>
     {
-        
+        List<Student> GetAllWithCourse();
+        List<Student> FindByName(string key);
     }
 }

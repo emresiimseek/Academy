@@ -8,34 +8,34 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Academy.EntityFramework.dll">
-      <publishTime>08/24/2020 02:25:54</publishTime>
+      <publishTime>09/12/2020 20:18:23</publishTime>
     </File>
     <File Include="bin/Academy.EntityFramework.pdb">
-      <publishTime>08/24/2020 02:25:54</publishTime>
+      <publishTime>09/12/2020 20:18:23</publishTime>
     </File>
     <File Include="bin/Acedemy.API.dll">
-      <publishTime>08/24/2020 03:41:54</publishTime>
+      <publishTime>09/12/2020 20:24:22</publishTime>
     </File>
     <File Include="bin/Acedemy.API.pdb">
-      <publishTime>08/24/2020 03:41:54</publishTime>
+      <publishTime>09/12/2020 20:24:22</publishTime>
     </File>
     <File Include="bin/Acedemy.Business.dll">
-      <publishTime>08/24/2020 02:25:55</publishTime>
+      <publishTime>09/12/2020 20:18:24</publishTime>
     </File>
     <File Include="bin/Acedemy.Business.dll.config">
       <publishTime>08/23/2020 02:50:22</publishTime>
     </File>
     <File Include="bin/Acedemy.Business.pdb">
-      <publishTime>08/24/2020 02:25:55</publishTime>
+      <publishTime>09/12/2020 20:18:24</publishTime>
     </File>
     <File Include="bin/Acedemy.DataAccess.dll">
-      <publishTime>08/24/2020 02:25:55</publishTime>
+      <publishTime>09/12/2020 20:18:24</publishTime>
     </File>
     <File Include="bin/Acedemy.DataAccess.dll.config">
       <publishTime>08/23/2020 02:50:22</publishTime>
     </File>
     <File Include="bin/Acedemy.DataAccess.pdb">
-      <publishTime>08/24/2020 02:25:55</publishTime>
+      <publishTime>09/12/2020 20:18:24</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -44,10 +44,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>08/24/2020 03:47:18</publishTime>
+      <publishTime>09/12/2020 20:31:26</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>08/24/2020 03:47:17</publishTime>
+      <publishTime>09/12/2020 20:31:26</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>07/01/2020 16:00:54</publishTime>
@@ -68,13 +68,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/17/2014 20:16:30</publishTime>
     </File>
     <File Include="bin/FrameworkCore.dll">
-      <publishTime>08/24/2020 02:25:55</publishTime>
+      <publishTime>09/12/2020 20:18:23</publishTime>
     </File>
     <File Include="bin/FrameworkCore.dll.config">
       <publishTime>08/22/2020 02:07:58</publishTime>
     </File>
     <File Include="bin/FrameworkCore.pdb">
-      <publishTime>08/24/2020 02:25:55</publishTime>
+      <publishTime>09/12/2020 20:18:23</publishTime>
     </File>
     <File Include="bin/Google.Protobuf.dll">
       <publishTime>08/10/2018 18:51:54</publishTime>
@@ -473,7 +473,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/14/2020 15:24:35</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>08/24/2020 03:47:10</publishTime>
+      <publishTime>09/12/2020 20:31:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>08/14/2020 15:24:37</publishTime>
@@ -536,7 +536,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/14/2020 15:24:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/23/2020 21:22:07</publishTime>
+      <publishTime>09/12/2020 20:18:26</publishTime>
     </File>
   </ItemGroup>
 </Project>

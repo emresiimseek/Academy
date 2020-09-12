@@ -1,0 +1,62 @@
+﻿@model List<StudentDto>
+@foreach (StudentDto student in Model)
+{
+    <tr class="@student.Id" onclick="AddedorNotPeople('@student.Id')">
+        <td> @Html.DisplayFor(modelItem => student.Id)  <input type="text" class="hiddencourse" name="name" value="@student.Id" /></td>
+
+        <td>  @Html.DisplayFor(modelItem => student.FirstName)</td>
+        <td> @Html.DisplayFor(modelItem => student.LastName)</td>
+
+
+        @if (student.Courses.Count == 0)
+        {
+            <td style="background-color:red;">Ders Atanmamış.</td>
+        }
+        else
+        {
+            <td>
+                @{
+                    foreach (Course course in student.Courses)
+                    {
+                        <p>@course.Title<i class="fa fa-book fa-style fa-icon" aria-hidden="true"></i></p>
+
+                    }
+                }
+            </td>
+
+        }
+        <td>
+            <label>
+                <input id="test" class="@student.Id" type="checkbox" />
+            </label>
+        </td>
+    </tr>
+}
+
+
+<script>
+
+
+    $(function () {
+
+        $("#searchbutton").click(function (e) {
+
+
+            alert("selam");
+            var value = $('#search').val();
+            $.ajax({
+                method: "POST",
+                url: "/Student/FindByName",
+                data: { key: value }
+            }).done(function (r) {
+                $("#body_table").html(r);
+            })
+
+
+
+        });
+    });
+
+
+
+</script>

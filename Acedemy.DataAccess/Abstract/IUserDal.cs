@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Acedemy.DataAccess.Abstract
 {
-    public interface IUserDal:IRepository<Person>
+    public interface IUserDal:IRepository<Instructor>
     {
+        List<Instructor> GetAllWithChilds();
+
     }
 }

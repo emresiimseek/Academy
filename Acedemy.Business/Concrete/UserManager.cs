@@ -13,11 +13,13 @@ namespace Acedemy.Business.Concrete
 {
     public class UserManager : IUserService
     {
-        public IUserDal _userDal { get; set; }
+        private IUserDal _userDal { get; set; }
+        private IValidateService _validateService { get; set; }
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal, IValidateService validateService)
         {
             _userDal = userDal;
+            _validateService = validateService;
         }
 
         public int Add(Instructor entity)
@@ -32,27 +34,38 @@ namespace Acedemy.Business.Concrete
 
         public List<Instructor> GetAll(Expression<Func<Instructor, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return _userDal.GetAll(null);
         }
 
         public Instructor Get(Expression<Func<Instructor, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _userDal.Get(filter);
         }
 
         public void Update(Instructor entity)
         {
-            throw new NotImplementedException();
+            _userDal.Update(entity);
         }
 
         public int Delete(Instructor entity)
         {
-            throw new NotImplementedException();
+            return _userDal.Delete(entity);
         }
 
         public void AddUser(Instructor ınstructor)
         {
+            _userDal.Add(ınstructor);
+        }
 
+        public List<Instructor> GetAllWithChilds()
+        {
+            return _userDal.GetAllWithChilds();
+        }
+
+        public Instructor GetByUsernamePassword(Instructor ınstructor)
+        {
+            ınstructor.Password = _validateService.Encrypt(ınstructor.Password);
+            return _userDal.Get(u => u.UserName == ınstructor.UserName && u.Password == ınstructor.Password);
         }
     }
 }

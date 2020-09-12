@@ -1,4 +1,6 @@
 ﻿using Acedemy.API.Models.Dto;
+using Acedemy.Mvc.UI.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace Acedemy.Mvc.UI.ApiServices
         {
             _httpClient = httpClient;
         }
-        
+
 
         public async Task Add(InstructorDto ınstructorDto, string path)
         {
@@ -23,5 +25,23 @@ namespace Acedemy.Mvc.UI.ApiServices
                 path, ınstructorDto);
             response.EnsureSuccessStatusCode();
         }
+        public async Task<InstructorDto> Get(string accessToken, string path, LoginUserModel userModal)
+        {
+            InstructorDto ınstructorDto = new InstructorDto();
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(path, userModal);
+            if (response.IsSuccessStatusCode)
+            {
+                ınstructorDto = JsonConvert.DeserializeObject<InstructorDto>(await response.Content.ReadAsStringAsync());
+                return ınstructorDto;
+            }
+            else
+            {
+                ınstructorDto = null;
+            }
+            return ınstructorDto;
+        }
+
+
     }
 }

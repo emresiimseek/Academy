@@ -10,9 +10,9 @@ namespace Academy.EntityFramework.Concrete.DTOs
     {
         [Required]
         public int CourseId { get; set; }
-
+        [Required(ErrorMessage = "Lütfen yoklama almak istediğiniz tarihi seçiniz.")]
         public string ReportDateAsString { get; set; }
         public DateTime ReportDate { get; set; }
-     
+
     }
 }

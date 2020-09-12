@@ -15,9 +15,9 @@
     -webkit-transition: .3s;
     -moz-transition: .3s;
     transition: .3s;
-    -webkit-transform: rotateY(40deg);
-    -moz-transform: rotateY(40deg);
-    transform: rotateY(40deg);
+    -webkit-transform: rotateY(5deg);
+    -moz-transform: rotateY(5deg);
+    transform: rotateY(5deg);
 }
 
     .login:hover {
@@ -84,7 +84,8 @@
     border-right-style: none;
     border-right-width: medium;
 }
-.backreg{
-    text-align:center;
-    width:100%;
+
+.backreg {
+    text-align: center;
+    width: 100%;
 }
