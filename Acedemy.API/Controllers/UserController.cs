@@ -27,15 +27,17 @@ namespace Acedemy.API.Controllers
 
         // POST: api/User
         [HttpPost]
-        public void Post([FromBody] InstructorDto ınstructorDto)
+        public IHttpActionResult Post([FromBody] InstructorDto ınstructorDto)
         {
             _userService.Add(_autoMapperBase.MapToSameType<InstructorDto, Instructor>(ınstructorDto));
+            return Ok();
         }
         [HttpPost]
         [Route("api/User/")]
-        public InstructorDto Get([FromBody] UserDto userDto)
+        public IHttpActionResult Get([FromBody] UserDto userDto)
         {
-            return _autoMapperBase.MapToSameType<Instructor, InstructorDto>(_userService.GetByUsernamePassword(_autoMapperBase.MapToSameType<UserDto, Instructor>(userDto)));
+            return Ok(_autoMapperBase.MapToSameType<Instructor, InstructorDto>(_userService.GetByUsernamePassword(_autoMapperBase.MapToSameType<UserDto, Instructor>(userDto))));
+
         }
 
 

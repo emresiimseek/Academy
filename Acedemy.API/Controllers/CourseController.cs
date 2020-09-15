@@ -31,26 +31,26 @@ namespace Acedemy.API.Controllers
         }
         // GET: api/Course
         [HttpGet]
-        public List<CourseDto> GetAll()
+        public IHttpActionResult GetAll()
         {
 
             List<Course> courses = _courseService.GetAllCourseWithChild();
             List<CourseDto> courseModels = _autoMapperBase.MapToSameList<Course, CourseDto>(courses);
-            return courseModels;
+            return Ok(courseModels);
         }
         [Route("api/Course/People")]
         [HttpGet]
-        public List<CourseDto> GetAllCourseWithInstructors()
+        public IHttpActionResult GetAllCourseWithInstructors()
         {
             List<Course> courses = _courseService.GetAllCourseWithChild();
             List<CourseDto> courseModels = _autoMapperBase.MapToSameList<Course, CourseDto>(courses);
-            return courseModels;
+            return Ok(courseModels);
         }
 
         // GET: api/Course/5
         [HttpGet]
         [Route("api/Course/{id}")]
-        public CourseDto Get(int id)
+        public IHttpActionResult Get(int id)
         {
             Course course = _courseService.Get(id);
             if (course == null)
@@ -64,22 +64,21 @@ namespace Acedemy.API.Controllers
                 throw new HttpResponseException(response);
             }
             course = _courseService.GetCourseWithChild(id);
-            return _autoMapperBase.MapToSameType<Course, CourseDto>(course);
+            return Ok(_autoMapperBase.MapToSameType<Course, CourseDto>(course));
         }
 
         // POST: api/Course
         [HttpPost]
-        public void Post([FromBody] CourseDto courseModel)
+        public IHttpActionResult Post([FromBody] CourseDto courseModel)
         {
-
-
             _courseService.Add(_autoMapperBase.MapToSameType<CourseDto, Course>(courseModel));
+            return Ok();
         }
 
         // PUT: api/Course/5
         [HttpPut]
         [Route("api/Course/{id}")]
-        public CourseDto Put(int id, [FromBody] CourseDto courseModel)
+        public IHttpActionResult Put(int id, [FromBody] CourseDto courseModel)
         {
             Course course = _courseService.Get(id);
             if (course == null)
@@ -95,13 +94,13 @@ namespace Acedemy.API.Controllers
             courseModel.ModifiedOn = DateTime.Now;
             courseModel.CreatedOn = course.CreatedOn;
             _courseService.Update(_autoMapperBase.MapToSameType<CourseDto, Course>(courseModel));
-            return courseModel;
+            return Ok(courseModel);
         }
 
         // DELETE: api/Course/5
         [HttpDelete]
         [Route("api/Course/{id}")]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             Course course = _courseService.Get(id);
             if (course == null)
@@ -115,18 +114,21 @@ namespace Acedemy.API.Controllers
                 throw new HttpResponseException(response);
             }
             _courseService.Delete(course);
+            return Ok();
         }
         [HttpPost]
         [Route("api/Course/AssignStudent")]
-        public BusinessLayerResult<AssignDto> AssignStudentToCourse([FromBody] AssignDto assignDto)
+        public IHttpActionResult AssignStudentToCourse([FromBody] AssignDto assignDto)
         {
-            return _courseService.AssignStudentToCourse(assignDto);
+            BusinessLayerResult<AssignDto> result = _courseService.AssignStudentToCourse(assignDto);
+            return Ok(result);
         }
         [HttpPost]
         [Route("api/Course/AssignInstructor")]
-        public BusinessLayerResult<AssignDto> AssignInstructorToCourse([FromBody] AssignDto assignDto)
+        public IHttpActionResult AssignInstructorToCourse([FromBody] AssignDto assignDto)
         {
-            return _courseService.AssignInstructorToCourse(assignDto);
+            BusinessLayerResult<AssignDto> result =_courseService.AssignInstructorToCourse(assignDto);
+            return Ok(result);
         }
 
         [Route("api/Course/values")]

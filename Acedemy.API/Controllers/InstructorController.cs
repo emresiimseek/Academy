@@ -29,7 +29,7 @@ namespace Acedemy.API.Controllers
         // GET: api/Instructor/5
         [HttpGet()]
         [Route("api/Instructor/{id}")]
-        public InstructorDto Get(int id)
+        public IHttpActionResult Get(int id)
         {
 
 
@@ -44,23 +44,24 @@ namespace Acedemy.API.Controllers
                 };
                 throw new HttpResponseException(response);
             }
-            InstructorDto dto = _autoMapperBase.MapToSameType<Instructor, InstructorDto>(ınstructor);
-            return dto;
+            InstructorDto ınstructorDto = _autoMapperBase.MapToSameType<Instructor, InstructorDto>(ınstructor);
+            return Ok(ınstructorDto);
 
         }
 
         // POST: api/Instructor
         [HttpPost]
         [Route("api/Instructor/")]
-        public void Post([FromBody] InstructorDto ınstructorDto)
+        public IHttpActionResult Post([FromBody] InstructorDto ınstructorDto)
         {
             Instructor ınstructor = _autoMapperBase.MapToSameType<InstructorDto, Instructor>(ınstructorDto);
             _ınstructorService.Add(ınstructor);
+            return Ok();
         }
 
         [HttpPut]
         [Route("api/Instructor/{id}")]
-        public void Put(int id, [FromBody] InstructorDto ınstructorDto)
+        public IHttpActionResult Put(int id, [FromBody] InstructorDto ınstructorDto)
         {
             Instructor ınstructor = _ınstructorService.Get(id);
             if (ınstructor == null)
@@ -75,28 +76,29 @@ namespace Acedemy.API.Controllers
             }
 
             _ınstructorService.Update(_autoMapperBase.MapToSameType<InstructorDto, Instructor>(ınstructorDto));
+            return Ok();
         }
 
 
 
         [HttpPost]
         [Route("api/Instructor/Find")]
-        public List<InstructorDto> FindByName([FromBody] string key)
+        public IHttpActionResult FindByName([FromBody] string key)
         {
-            return _autoMapperBase.MapToSameList<Instructor, InstructorDto>(_ınstructorService.FindByName(key));
+            return Ok(_autoMapperBase.MapToSameList<Instructor, InstructorDto>(_ınstructorService.FindByName(key)));
         }
         [HttpGet]
         [Route("api/Instructor")]
         // GET: api/User
-        public List<InstructorDto> GetAll()
+        public IHttpActionResult GetAll()
         {
             List<Instructor> ınstructors = _ınstructorService.GetInstructorWithCourses();
             List<InstructorDto> ınstructorDtos = _autoMapperBase.MapToSameList<Instructor, InstructorDto>(ınstructors);
-            return ınstructorDtos;
+            return Ok(ınstructorDtos);
         }
         [HttpDelete]
         [Route("api/Instructor/{id}")]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             Instructor course = _ınstructorService.Get(id);
             if (course == null)
@@ -110,6 +112,7 @@ namespace Acedemy.API.Controllers
                 throw new HttpResponseException(response);
             }
             _ınstructorService.Delete(course);
+            return Ok();
         }
 
 

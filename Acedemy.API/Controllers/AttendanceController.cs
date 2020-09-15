@@ -30,19 +30,19 @@ namespace Acedemy.API.Controllers
         // POST: api/Attendance/Report
         [Route("api/Attendance/Report")]
         [HttpPost]
-        public List<AttendanceReport> GetAttendanceReport([FromBody] ReportDto reportDto)
+        public IHttpActionResult GetAttendanceReport([FromBody] ReportDto reportDto)
         {
             List<AttendanceReport> attendanceReports = _attendanceService.GetAttendanceReport(reportDto);
-            return attendanceReports;
+            return Ok(attendanceReports);
 
         }
         // DELETE: api/Attendance/5
         [HttpDelete]
         [Route("api/Attendance/{id}")]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             AttendanceDetail attendance = new AttendanceDetail();
-            attendance=_attendanceService.GetAttendanceDetail(id);
+            attendance = _attendanceService.GetAttendanceDetail(id);
             if (attendance == null)
             {
                 var response = new HttpResponseMessage(HttpStatusCode.NotFound)
@@ -54,16 +54,17 @@ namespace Acedemy.API.Controllers
                 throw new HttpResponseException(response);
             }
             _attendanceService.DeleteStudentFromAttendance(attendance);
+            return Ok();
         }
 
 
         // POST: api/Attendance
-        public List<MessagesObj> Post(AttendanceDto attendanceDto)
+        public IHttpActionResult Post(AttendanceDto attendanceDto)
         {
             Attendance attendance = _autoMapperBase.MapToSameType<AttendanceDto, Attendance>(attendanceDto);
             //attendance= _attendanceService.CreateAttendance(attendance);
-            BusinessLayerResult<Attendance> result  = _attendanceService.SaveAttendance(attendance);
-            return result.Error;
+            BusinessLayerResult<Attendance> result = _attendanceService.SaveAttendance(attendance);
+            return Ok(result.Error);
         }
     }
 }

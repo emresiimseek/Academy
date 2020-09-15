@@ -24,24 +24,25 @@ namespace Acedemy.API.Controllers
             _autoMapperBase = autoMapperBase;
         }
         // GET: api/Student
-        public List<StudentDto> GetAll()
+        public IHttpActionResult GetAll()
         {
             List<Student> students = _studentService.GetStudentWithCourses();
             List<StudentDto> studentModels = _autoMapperBase.MapToSameList<Student, StudentDto>(students);
-            return studentModels;
+            return Ok(studentModels);
         }
 
 
         // POST: api/Student
         [HttpPost]
-        public void Post([FromBody] StudentDto studentModel)
+        public IHttpActionResult Post([FromBody] StudentDto studentModel)
         {
             _studentService.Add(_autoMapperBase.MapToSameType<StudentDto, Student>(studentModel));
+            return Ok();
         }
 
         [HttpPut]
         [Route("api/Student/{id}")]
-        public void Put(int id, [FromBody] StudentDto studentDto)
+        public IHttpActionResult Put(int id, [FromBody] StudentDto studentDto)
         {
             Student student = _studentService.Get(id);
             if (student == null)
@@ -56,19 +57,20 @@ namespace Acedemy.API.Controllers
             }
 
             _studentService.Update(_autoMapperBase.MapToSameType<StudentDto, Student>(studentDto));
+            return Ok();
         }
 
 
         [HttpPost]
         [Route("api/Student/Find")]
-        public List<StudentDto> FindByName([FromBody] string key)
+        public IHttpActionResult FindByName([FromBody] string key)
         {
-            return _autoMapperBase.MapToSameList<Student, StudentDto>(_studentService.FindByName(key));
+            return Ok(_autoMapperBase.MapToSameList<Student, StudentDto>(_studentService.FindByName(key)));
         }
 
         [HttpDelete]
         [Route("api/Student/{id}")]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             Student course = _studentService.Get(id);
             if (course == null)
@@ -82,12 +84,13 @@ namespace Acedemy.API.Controllers
                 throw new HttpResponseException(response);
             }
             _studentService.Delete(course);
+            return Ok();
         }
 
         // GET: api/Student/5
         [HttpGet()]
         [Route("api/Student/{id}")]
-        public StudentDto Get(int id)
+        public IHttpActionResult Get(int id)
         {
             Student student = _studentService.Get(id);
             if (student == null)
@@ -101,8 +104,8 @@ namespace Acedemy.API.Controllers
                 throw new HttpResponseException(response);
             }
 
-            StudentDto dto = _autoMapperBase.MapToSameType<Student, StudentDto>(student);
-            return dto;
+            StudentDto studentDto = _autoMapperBase.MapToSameType<Student, StudentDto>(student);
+            return Ok(studentDto);
 
         }
 
